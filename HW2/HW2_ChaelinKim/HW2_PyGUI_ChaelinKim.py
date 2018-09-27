@@ -35,7 +35,7 @@ def generateModels(*args):
         return
     regObjects = cmds.textScrollList(objList, query=True, allItems=True)
     regPlane = cmds.textScrollList(pList, query=True, allItems=True)
-    mel.eval("SmartModeling -o " + regObjects + " -p " + regPlane + ";")
+    mel.eval("SmartModeling -h " + modelHeight + " -p " + ''.join(regPlane) + ";")
 
 ''' Window Setting '''
 windowName = "Smart Modeling"
