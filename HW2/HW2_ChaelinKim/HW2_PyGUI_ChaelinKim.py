@@ -1,4 +1,5 @@
 import maya.cmds as cmds
+import maya.mel as mel
 
 # Add items to Object list
 def addToObjList(*args):
@@ -28,7 +29,11 @@ def delInPlaneList(*args):
 
 # Generate objects on the plane
 def generateModels(*args):
-    print cmds.textField(height, query=True, text=True)
+    modelHeight = cmds.textField(height, query=True, text=True)
+    if not modelHeight:
+        print "Please write model height!"
+        return
+    mel.eval("SmartModeling;")
 
 ''' Window Setting '''
 windowName = "Smart Modeling"

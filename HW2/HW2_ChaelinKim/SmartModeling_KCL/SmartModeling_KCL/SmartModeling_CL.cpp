@@ -33,7 +33,7 @@ private:
 	MObjectArray objects;
 };
 
-const char *heightFlag = "-he", *heightLongFlag = "-height";
+const char *heightFlag = "-h", *heightLongFlag = "-height";
 
 MSyntax SmartModeling::newSyntax() {
 	MSyntax syntax;
@@ -44,6 +44,8 @@ MSyntax SmartModeling::newSyntax() {
 }
 
 MStatus SmartModeling::doIt(const MArgList &args) {
+	MGlobal::displayInfo("working?");
+
 	// Register objects
 	MDagPath dagMesh;
 	MFnMesh fnMesh;
