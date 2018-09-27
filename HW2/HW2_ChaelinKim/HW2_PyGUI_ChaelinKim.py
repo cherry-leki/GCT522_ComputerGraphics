@@ -33,7 +33,9 @@ def generateModels(*args):
     if not modelHeight:
         print "Please write model height!"
         return
-    mel.eval("SmartModeling;")
+    regObjects = cmds.textScrollList(objList, query=True, allItems=True)
+    regPlane = cmds.textScrollList(pList, query=True, allItems=True)
+    mel.eval("SmartModeling -o " + regObjects + " -p " + regPlane + ";")
 
 ''' Window Setting '''
 windowName = "Smart Modeling"
