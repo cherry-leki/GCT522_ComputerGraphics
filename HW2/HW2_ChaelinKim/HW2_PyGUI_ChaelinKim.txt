@@ -1,0 +1,38 @@
+import maya.cmds as cmds
+
+''' Window Setting '''
+windowName = "Smart Modeling"
+windowSize = [350, 350]
+
+window = cmds.window(title=windowName, widthHeight=windowSize, sizeable=False)
+
+''' Main Layout '''
+cmds.columnLayout("mainRow", co=["both", 24], rs=10, columnAlign="center", w=300)
+
+''' Object & Plane List Layout '''
+cmds.rowLayout("listColumn", p="mainRow", numberOfColumns=2)
+
+''' Object List Layout '''
+cmds.columnLayout("objectList", p="listColumn", rs=10, co=["right", 15])
+cmds.text(label="")
+cmds.text(label="Object List", p="objectList", w=140)
+cmds.textScrollList(p="objectList", w=140, h=130)
+cmds.button(label="Add", p="objectList", w=140, bgc=[0.698,0.501,0.490])
+cmds.button(label="Delete", p="objectList", w=140, bgc=[0.705,0.4,0.4])
+cmds.text(label="Height: ", align='center', w=140, h=20)
+
+''' Plane List Layout '''
+cmds.columnLayout("planeList", p="listColumn", rs=10)
+cmds.text(label="")
+cmds.text(label="Plane List", p="planeList", w=140)
+cmds.textScrollList(p="planeList", w=140, h=130)
+cmds.button(label="Add", p="planeList", w=140, bgc=[0.701,0.901,0.694])
+cmds.button(label="Delete", p="planeList", w=140, bgc=[0.4,0.701,0.396])
+cmds.textField("heightTextField", p="planeList", w=140)
+
+
+''' Generate button '''
+cmds.button(label="Generate", p="mainRow", w=300, h=30, bgc=[0.203,0.203,0.498])
+
+# Show Window
+cmds.showWindow(window)
