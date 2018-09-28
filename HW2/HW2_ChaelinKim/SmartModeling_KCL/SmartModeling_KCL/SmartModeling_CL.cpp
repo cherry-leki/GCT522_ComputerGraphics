@@ -16,6 +16,9 @@
 #include <maya/MItMeshVertex.h>
 #include <maya/MFnSet.h>
 #include <maya/MDGModifier.h>
+#include <maya/MString.h>
+#include <maya/MStringArray.h>
+#include <string.h>
 #include <math.h>
 
 class SmartModeling : public MPxCommand {
@@ -55,6 +58,7 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 
 	MString plane;
 	MString objects;
+	MStringArray objectArr;
 
 	MStatus stat;
 	MArgDatabase argData(syntax(), args, &stat);
@@ -66,6 +70,12 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 		argData.getFlagArgument(objectFlag, 0, objects);
 
 	MGlobal::displayInfo(objects);
+	const char* tok = "|";
+	objects.split(*tok, objectArr);
+	for (int i = 0; i < objectArr.length(); i++) {
+		MGlobal::displayInfo(objectArr[i] + " ");
+	}
+	
 
 	if (argData.isFlagSet(planeFlag) && !isQuery)
 		argData.getFlagArgument(planeFlag, 0, plane);
