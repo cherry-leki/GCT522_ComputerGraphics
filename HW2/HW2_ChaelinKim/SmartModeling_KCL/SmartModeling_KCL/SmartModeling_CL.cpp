@@ -66,27 +66,27 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 
 	isQuery = argData.isQuery();
 
-	if (argData.isFlagSet(objectFlag) && !isQuery)
+	if (argData.isFlagSet(objectFlag))
 		argData.getFlagArgument(objectFlag, 0, objects);
 
-	MGlobal::displayInfo(objects);
-	const char* tok = "|";
-	objects.split(*tok, objectArr);
-	for (int i = 0; i < objectArr.length(); i++) {
-		MGlobal::displayInfo(objectArr[i] + " ");
-	}
-	
-
-	if (argData.isFlagSet(planeFlag) && !isQuery)
+	if (argData.isFlagSet(planeFlag))
 		argData.getFlagArgument(planeFlag, 0, plane);
 
 	if (argData.isFlagSet(heightFlag))
 		argData.getFlagArgument(heightFlag, 0, height);
 
-	MSelectionList selection;
-	selection.clear();
-	MGlobal::getSelectionListByName(plane, selection);
+	MGlobal::displayInfo(objects);
+	objects.split('|', objectArr);	
 
+	MSelectionList selectPlane;
+	selectPlane.clear();
+	MGlobal::getSelectionListByName(plane, selectPlane);
+
+	MSelectionList selectObjects;
+	selectObjects.clear();
+	for (int i = 0; i < objectArr.length(); i++) {
+		selectObjects.add(objectArr[i]);
+	}
 
 	// Register objects
 	// Plane
@@ -97,51 +97,45 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 	// Objects
 	MObject dagModel;
 	MFnTransform fnTransform;
-	fnTransform.setObject(dagModel);
-
 
 	MString txt;
-	MItSelectionList iter(selection, MFn::kMesh);
-	for (; !iter.isDone(); iter.next()) {
-		iter.getDagPath(dagMesh);
+	selectPlane.getDagPath(0, dagMesh);
 
-		// Iterate over the mesh vertices
-		int vertCount, vertIndex;
-		MItMeshVertex iterVtx(dagMesh);
-		for (; !iterVtx.isDone(); iterVtx.next()) {
-			MPoint pt = iterVtx.position(MSpace::kWorld);
-			vertIndex = iterVtx.index();
-			txt += MString(" ") + vertIndex + ": " +
-				pt.x + ", " + pt.y + ", " + pt.z + "\n";
+	// Iterate over the mesh vertices
+	int vertIndex;
+	MItMeshVertex iterVtx(dagMesh);
+	for (; !iterVtx.isDone(); iterVtx.next()) {
+		MPoint pt = iterVtx.position(MSpace::kWorld);
+		vertIndex = iterVtx.index();
+		txt += MString(" ") + vertIndex + ": " +
+			pt.x + ", " + pt.y + ", " + pt.z + "\n";
 
-			int tempHeight = (rand() % height + 1);
-			MGlobal::executeCommand(MString("cylinder -pivot ") + pt.x + " " + (pt.y + tempHeight * 2) + " " + pt.z
-				+ " -radius 5 -axis 0 1 0 -heightRatio " + tempHeight);
-		}
+		int randomModelNum = (rand() % (objectArr.length()));
+		int tempHeight = (rand() % height + 1);
 
-
-		// Duplicate an object
-		// During the iteration
+		selectObjects.getDependNode(randomModelNum, dagModel);
+		fnTransform.setObject(dagModel);
 		MObject instance = fnTransform.duplicate();
 
 		// Register the duplicated instance and set its transformation
 		MFnTransform fnInstance(instance);
-		// fnInstance.setSomething();
+		fnInstance.setTranslation(pt, MSpace::kTransform);
+	}
 
-		// Initial Shading Group
-		// Refer to a Ground-Shadow plug-in in your textbook
-		MSelectionList sList;
-		sList.clear();
+	//	// Initial Shading Group
+	//	// Refer to a Ground-Shadow plug-in in your textbook
+	//	MSelectionList sList;
+	//	sList.clear();
 
-		MGlobal::getSelectionListByName("initialShadingGroup", sList);
-		//sList.getDependNode(0, shadingGroupObj);
+	//	MGlobal::getSelectionListByName("initialShadingGroup", sList);
+	//	//sList.getDependNode(0, shadingGroupObj);
 
-		MFnSet shadingGroupFn;
-		//shadingGroupFn.setObject(shadingGroupObj);
+	//	MFnSet shadingGroupFn;
+	//	//shadingGroupFn.setObject(shadingGroupObj);
 
-		// Connect a duplicated instance with initial shading group during the iteration
-		shadingGroupFn.addMember(instance);
-	}	
+	//	// Connect a duplicated instance with initial shading group during the iteration
+	//	shadingGroupFn.addMember(instance);
+	//}	
 
 	return redoIt();
 }
