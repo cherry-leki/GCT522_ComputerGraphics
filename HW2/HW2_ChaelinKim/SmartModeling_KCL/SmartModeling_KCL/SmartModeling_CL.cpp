@@ -104,6 +104,7 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 	// Iterate over the mesh vertices
 	int vertIndex;
 	MItMeshVertex iterVtx(dagMesh);
+
 	for (; !iterVtx.isDone(); iterVtx.next()) {
 		MPoint pt = iterVtx.position(MSpace::kWorld);
 		vertIndex = iterVtx.index();
@@ -111,7 +112,6 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 			pt.x + ", " + pt.y + ", " + pt.z + "\n";
 
 		int randomModelNum = (rand() % (objectArr.length()));
-		int tempHeight = (rand() % height + 1);
 
 		selectObjects.getDependNode(randomModelNum, dagModel);
 		fnTransform.setObject(dagModel);
@@ -120,22 +120,26 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 		// Register the duplicated instance and set its transformation
 		MFnTransform fnInstance(instance);
 		fnInstance.setTranslation(pt, MSpace::kTransform);
+
+		double scale[3];
+		fnInstance.getScale(scale);
+		scale[1] = rand() % height + 1;
+		fnInstance.setScale(scale);
+
+		// Initial Shading Group
+		// Refer to a Ground-Shadow plug-in in your textbook
+		MSelectionList sList;
+		sList.clear();
+
+		MGlobal::getSelectionListByName("initialShadingGroup", sList);
+		//sList.getDependNode(0, shadingGroupObj);
+
+		MFnSet shadingGroupFn;
+		//shadingGroupFn.setObject(shadingGroupObj);
+
+		// Connect a duplicated instance with initial shading group during the iteration
+		shadingGroupFn.addMember(instance);
 	}
-
-	//	// Initial Shading Group
-	//	// Refer to a Ground-Shadow plug-in in your textbook
-	//	MSelectionList sList;
-	//	sList.clear();
-
-	//	MGlobal::getSelectionListByName("initialShadingGroup", sList);
-	//	//sList.getDependNode(0, shadingGroupObj);
-
-	//	MFnSet shadingGroupFn;
-	//	//shadingGroupFn.setObject(shadingGroupObj);
-
-	//	// Connect a duplicated instance with initial shading group during the iteration
-	//	shadingGroupFn.addMember(instance);
-	//}	
 
 	return redoIt();
 }
