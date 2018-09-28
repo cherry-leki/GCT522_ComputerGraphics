@@ -51,15 +51,21 @@ MSyntax SmartModeling::newSyntax() {
 }
 
 MStatus SmartModeling::doIt(const MArgList &args) {
-	MGlobal::displayInfo("working?");
+	//MGlobal::displayInfo("working?");
 
 	MString plane;
+	MString objects;
 
 	MStatus stat;
 	MArgDatabase argData(syntax(), args, &stat);
 	if (!stat) return stat;
 
 	isQuery = argData.isQuery();
+
+	if (argData.isFlagSet(objectFlag) && !isQuery)
+		argData.getFlagArgument(objectFlag, 0, objects);
+
+	MGlobal::displayInfo(objects);
 
 	if (argData.isFlagSet(planeFlag) && !isQuery)
 		argData.getFlagArgument(planeFlag, 0, plane);
@@ -125,11 +131,7 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 
 		// Connect a duplicated instance with initial shading group during the iteration
 		shadingGroupFn.addMember(instance);
-	}
-	
-	MGlobal::displayInfo(txt);
-	
-	
+	}	
 
 	return redoIt();
 }

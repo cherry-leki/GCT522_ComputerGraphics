@@ -13,7 +13,10 @@ def addToObjList(*args):
         
 # Delete items in Object list
 def delInObjList(*args):
-    cmds.textScrollList(objList, edit=True, removeAll=True)
+    delItems = cmds.textScrollList(objList, query=True, selectItem=True)
+    for item in delItems:
+        cmds.textScrollList(objList, edit=True, removeItem=item)
+    
 
 # Add plane to Plane list        
 def addToPlaneList(*args):
@@ -25,7 +28,9 @@ def addToPlaneList(*args):
     
 # Delete item in Plane list
 def delInPlaneList(*args):
-    cmds.textScrollList(pList, edit=True, removeAll=True)
+    delItems = cmds.textScrollList(pList, query=True, selectItem=True)
+    for item in delItems:
+        cmds.textScrollList(pList, edit=True, removeItem=item)
 
 # Generate objects on the plane
 def generateModels(*args):
@@ -35,7 +40,7 @@ def generateModels(*args):
         return
     regObjects = cmds.textScrollList(objList, query=True, allItems=True)
     regPlane = cmds.textScrollList(pList, query=True, allItems=True)
-    mel.eval("SmartModeling -h " + modelHeight + " -p " + ''.join(regPlane) + ";")
+    mel.eval("SmartModeling -h " + modelHeight + " -p " + ''.join(regPlane) + " -o " + '__'.join(regObjects) + ";")
 
 ''' Window Setting '''
 windowName = "Smart Modeling"
