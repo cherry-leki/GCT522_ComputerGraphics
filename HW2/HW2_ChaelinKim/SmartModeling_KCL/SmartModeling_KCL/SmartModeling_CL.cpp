@@ -116,6 +116,8 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 	MFnSet shadingGroupFn;
 	shadingGroupFn.setObject(shadingGroupObj);
 
+	// Clear MObjectArray
+	instanceArray.clear();
 
 	for (; !iterVtx.isDone(); iterVtx.next()) {
 		MPoint pt = iterVtx.position(MSpace::kWorld);
@@ -153,36 +155,29 @@ MStatus SmartModeling::undoIt() {
 	MString selectedObjects;
 
 	for (int i = 0; i < instanceArray.length(); i++) {
-	}
-
-	for (int i = 0; i < instanceArray.length(); i++) {
 		MFnDagNode tempNode;
 		tempNode.setObject(instanceArray[i]);
 		selectedObjects += tempNode.name() + " ";
 	}
 
-	MGlobal::executeCommand(MString("select -r ") + selectedObjects);
-	MGlobal::executeCommand("doDelete");
+	MGlobal::executeCommand(MString("select -r ") + selectedObjects + " ;");
+	MGlobal::executeCommand("doDelete;");
 
 	return MS::kSuccess;
 }
 
 MStatus SmartModeling::redoIt() {
 	MGlobal::displayInfo("redo");
-	MString selectedObjects;
+	/*MString selectedObjects;
 
-	
 	for (int i = 0; i < instanceArray.length(); i++) {
 		MFnDagNode tempNode;
 		tempNode.setObject(instanceArray[i]);
 		selectedObjects += tempNode.name() + " ";
 	}
 
-	MGlobal::displayInfo(selectedObjects);
-	MGlobal::executeCommand(MString("select -r ") + selectedObjects);
-	
+	MGlobal::executeCommand(MString("select -r ") + selectedObjects + " ;");*/
 
-	// redo 가능하도록 doit에 있는 것을 옮길 필요 있음
 	return MS::kSuccess;
 }
 
