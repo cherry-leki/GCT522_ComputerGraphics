@@ -34,10 +34,10 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 	MArgDatabase argData(syntax(), args, &stat);
 	if (!stat) return stat;
 	
+	// Set values from flag arguments
 	if (argData.isFlagSet(objectFlag))
 		argData.getFlagArgument(objectFlag, 0, objects);
-	objects.split('|', objectArr);
-
+	
 	if (argData.isFlagSet(planeFlag))
 		argData.getFlagArgument(planeFlag, 0, plane);
 
@@ -45,10 +45,12 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 		argData.getFlagArgument(heightFlag, 0, height);
 
 	
-	// set plane
+	// set plane to selection
 	selectPlane.clear();
 	MGlobal::getSelectionListByName(plane, selectPlane);
 
+	// set objects to selection
+	objects.split('|', objectArr);	// Parse the string data 
 	selectObjects.clear();
 	for (int i = 0; i < objectArr.length(); i++) {
 		selectObjects.add(objectArr[i]);
@@ -115,7 +117,7 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 }
 
 MStatus SmartModeling::undoIt() {
-	MGlobal::displayInfo("undo");
+	// Make instanceArray to String
 	MString selectedObjects;
 
 	for (int i = 0; i < instanceArray.length(); i++) {
@@ -124,6 +126,7 @@ MStatus SmartModeling::undoIt() {
 		selectedObjects += tempNode.name() + " ";
 	}
 
+	// Undo command
 	MGlobal::executeCommand(MString("select -r ") + selectedObjects + " ;");
 	MGlobal::executeCommand("doDelete;");
 
@@ -138,12 +141,7 @@ MStatus SmartModeling::redoIt() {
 
 	selectPlane.getDagPath(0, dagMesh);
 
-	// Iterate over the mesh vertices
-	int vertIndex;
-	MItMeshVertex iterVtx(dagMesh);
-
 	// Initial Shading Group
-	// Refer to a Ground-Shadow plug-in in your textbook
 	MSelectionList sList;
 	MObject shadingGroupObj;
 
@@ -154,9 +152,14 @@ MStatus SmartModeling::redoIt() {
 	MFnSet shadingGroupFn;
 	shadingGroupFn.setObject(shadingGroupObj);
 
+	// Iterate over the mesh vertices
+	int vertIndex;
+	MItMeshVertex iterVtx(dagMesh);
+
 	// Clear MObjectArray
 	instanceArray.clear();
 
+	// Arrange objects on the plane 
 	for (; !iterVtx.isDone(); iterVtx.next()) {
 		MPoint pt = iterVtx.position(MSpace::kWorld);
 		vertIndex = iterVtx.index();
@@ -172,15 +175,17 @@ MStatus SmartModeling::redoIt() {
 
 		// Register the duplicated instance and set its transformation
 		MFnTransform fnInstance(instance);
+		// set objects to the each vertex on the plane
 		fnInstance.setTranslation(pt, MSpace::kTransform);
 
+		// append objects to instanceArray for undo/redo
 		instanceArray.append(instance);
 
+		// change objects height
 		double scale[3];
 		fnInstance.getScale(scale);
-		scale[1] = rand() % height + 1;
+		scale[1] = scale[1] * (rand() % height + 1);
 		fnInstance.setScale(scale);
-
 
 		// Connect a duplicated instance with initial shading group during the iteration
 		shadingGroupFn.addMember(instance);

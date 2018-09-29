@@ -20,9 +20,9 @@ public:
 	static MSyntax newSyntax();
 
 private:
-	MObjectArray instanceArray;
-	MSelectionList selectPlane;
-	MSelectionList selectObjects;
+	MObjectArray instanceArray;		// for Undo/Redo
+	MSelectionList selectPlane;		// Plane selection
+	MSelectionList selectObjects;	// objects selection
 	MStringArray objectArr;
 
 	int height;
