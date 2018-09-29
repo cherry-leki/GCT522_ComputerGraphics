@@ -1,6 +1,6 @@
-* Source code (.sln/ .cpp / .h / .vcproj)
-- .cpp/ .h /.vcproj	: SmartModeling_KCL\SmartModeling_KCL
-- .sln		: SmartModeling_KCL
+* Source code (.sln/ .cpp / .h / .vcproj / .py)
+- .cpp / .h / .vcproj: SmartModeling_KCL\SmartModeling_KCL
+- .sln / .py	: SmartModeling_KCL
 
 * Compiled binary file (.mll)
 - SmartModeling_KCL\x64\Release
