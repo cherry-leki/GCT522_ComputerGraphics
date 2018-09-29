@@ -32,10 +32,12 @@ public:
 	static MSyntax newSyntax();
 
 private:
-	bool isQuery;
 	MObjectArray instanceArray;
 	MDGModifier dgMod;
 	int height;
+	MSelectionList selectPlane;
+	MSelectionList selectObjects;
+	MStringArray objectArr;
 };
 
 const char *heightFlag = "-h", *heightLongFlag = "-height";
@@ -57,14 +59,12 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 
 	MString plane;
 	MString objects;
-	MStringArray objectArr;
+	//MStringArray objectArr;
 
 	MStatus stat;
 	MArgDatabase argData(syntax(), args, &stat);
 	if (!stat) return stat;
-
-	isQuery = argData.isQuery();
-
+	
 	if (argData.isFlagSet(objectFlag))
 		argData.getFlagArgument(objectFlag, 0, objects);
 
@@ -77,77 +77,72 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 	MGlobal::displayInfo(objects);
 	objects.split('|', objectArr);	
 
-	MSelectionList selectPlane;
+	//MSelectionList selectPlane;
 	selectPlane.clear();
 	MGlobal::getSelectionListByName(plane, selectPlane);
 
-	MSelectionList selectObjects;
+	//MSelectionList selectObjects;
 	selectObjects.clear();
 	for (int i = 0; i < objectArr.length(); i++) {
 		selectObjects.add(objectArr[i]);
 	}
 
-	// Register objects
-	// Plane
-	MDagPath dagMesh;
-	MFnMesh fnMesh;
-	fnMesh.setObject(dagMesh);
+	//// Register Plane
+	//MDagPath dagMesh;
+	//MFnMesh fnMesh;
+	//fnMesh.setObject(dagMesh);
 
-	// Objects
-	MObject dagModel;
-	MFnTransform fnTransform;
+	//selectPlane.getDagPath(0, dagMesh);
 
-	MString txt;
-	selectPlane.getDagPath(0, dagMesh);
+	//// Iterate over the mesh vertices
+	//int vertIndex;
+	//MItMeshVertex iterVtx(dagMesh);
 
-	// Iterate over the mesh vertices
-	int vertIndex;
-	MItMeshVertex iterVtx(dagMesh);
+	//// Initial Shading Group
+	//// Refer to a Ground-Shadow plug-in in your textbook
+	//MSelectionList sList;
+	//MObject shadingGroupObj;
 
-	// Initial Shading Group
-	// Refer to a Ground-Shadow plug-in in your textbook
-	MSelectionList sList;
-	MObject shadingGroupObj;
+	//sList.clear();
+	//MGlobal::getSelectionListByName("initialShadingGroup", sList);
+	//sList.getDependNode(0, shadingGroupObj);
 
-	sList.clear();
-	MGlobal::getSelectionListByName("initialShadingGroup", sList);
-	sList.getDependNode(0, shadingGroupObj);
+	//MFnSet shadingGroupFn;
+	//shadingGroupFn.setObject(shadingGroupObj);
 
-	MFnSet shadingGroupFn;
-	shadingGroupFn.setObject(shadingGroupObj);
+	//// Clear MObjectArray
+	//instanceArray.clear();
 
-	// Clear MObjectArray
-	instanceArray.clear();
+	//for (; !iterVtx.isDone(); iterVtx.next()) {
+	//	MPoint pt = iterVtx.position(MSpace::kWorld);
+	//	vertIndex = iterVtx.index();
 
-	for (; !iterVtx.isDone(); iterVtx.next()) {
-		MPoint pt = iterVtx.position(MSpace::kWorld);
-		vertIndex = iterVtx.index();
-		txt += MString(" ") + vertIndex + ": " +
-			pt.x + ", " + pt.y + ", " + pt.z + "\n";
+	//	int randomModelNum = (rand() % (objectArr.length()));
 
-		int randomModelNum = (rand() % (objectArr.length()));
+	//	// Register objects
+	//	MObject dagModel;
+	//	MFnTransform fnTransform;
+	//	selectObjects.getDependNode(randomModelNum, dagModel);
+	//	fnTransform.setObject(dagModel);
+	//	MObject instance = fnTransform.duplicate();
 
-		selectObjects.getDependNode(randomModelNum, dagModel);
-		fnTransform.setObject(dagModel);
-		MObject instance = fnTransform.duplicate();
+	//	// Register the duplicated instance and set its transformation
+	//	MFnTransform fnInstance(instance);
+	//	fnInstance.setTranslation(pt, MSpace::kTransform);
 
-		// Register the duplicated instance and set its transformation
-		MFnTransform fnInstance(instance);
-		fnInstance.setTranslation(pt, MSpace::kTransform);
+	//	instanceArray.append(instance);
 
-		instanceArray.append(instance);
-
-		double scale[3];
-		fnInstance.getScale(scale);
-		scale[1] = rand() % height + 1;
-		fnInstance.setScale(scale);
+	//	double scale[3];
+	//	fnInstance.getScale(scale);
+	//	scale[1] = rand() % height + 1;
+	//	fnInstance.setScale(scale);
 
 
-		// Connect a duplicated instance with initial shading group during the iteration
-		shadingGroupFn.addMember(instance);
-	}
+	//	// Connect a duplicated instance with initial shading group during the iteration
+	//	shadingGroupFn.addMember(instance);
+	//}
 
-	return MS::kSuccess;
+	return redoIt();
 }
 
 MStatus SmartModeling::undoIt() {
@@ -177,6 +172,61 @@ MStatus SmartModeling::redoIt() {
 	}
 
 	MGlobal::executeCommand(MString("select -r ") + selectedObjects + " ;");*/
+
+	// Register Plane
+	MDagPath dagMesh;
+	MFnMesh fnMesh;
+	fnMesh.setObject(dagMesh);
+
+	selectPlane.getDagPath(0, dagMesh);
+
+	// Iterate over the mesh vertices
+	int vertIndex;
+	MItMeshVertex iterVtx(dagMesh);
+
+	// Initial Shading Group
+	// Refer to a Ground-Shadow plug-in in your textbook
+	MSelectionList sList;
+	MObject shadingGroupObj;
+
+	sList.clear();
+	MGlobal::getSelectionListByName("initialShadingGroup", sList);
+	sList.getDependNode(0, shadingGroupObj);
+
+	MFnSet shadingGroupFn;
+	shadingGroupFn.setObject(shadingGroupObj);
+
+	// Clear MObjectArray
+	instanceArray.clear();
+
+	for (; !iterVtx.isDone(); iterVtx.next()) {
+		MPoint pt = iterVtx.position(MSpace::kWorld);
+		vertIndex = iterVtx.index();
+
+		int randomModelNum = (rand() % (objectArr.length()));
+
+		// Register objects
+		MObject dagModel;
+		MFnTransform fnTransform;
+		selectObjects.getDependNode(randomModelNum, dagModel);
+		fnTransform.setObject(dagModel);
+		MObject instance = fnTransform.duplicate();
+
+		// Register the duplicated instance and set its transformation
+		MFnTransform fnInstance(instance);
+		fnInstance.setTranslation(pt, MSpace::kTransform);
+
+		instanceArray.append(instance);
+
+		double scale[3];
+		fnInstance.getScale(scale);
+		scale[1] = rand() % height + 1;
+		fnInstance.setScale(scale);
+
+
+		// Connect a duplicated instance with initial shading group during the iteration
+		shadingGroupFn.addMember(instance);
+	}
 
 	return MS::kSuccess;
 }
