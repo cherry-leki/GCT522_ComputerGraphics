@@ -172,6 +172,9 @@
   <ItemGroup>
     <ClCompile Include="SmartModeling_CL.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SmartModeling_CL.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
