@@ -26,15 +26,14 @@ public:
 	virtual MStatus doIt(const MArgList&);
 	virtual MStatus undoIt();
 	virtual MStatus redoIt();
-	virtual bool isUndoable() const;
+	virtual bool isUndoable() const { return true;  };
 
 	static void *creator() { return new SmartModeling; }
 	static MSyntax newSyntax();
 
 private:
 	bool isQuery;
-	MDagPathArray planePath;
-	MObjectArray objects;
+	MObjectArray instanceArray;
 	MDGModifier dgMod;
 	int height;
 };
@@ -105,6 +104,19 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 	int vertIndex;
 	MItMeshVertex iterVtx(dagMesh);
 
+	// Initial Shading Group
+	// Refer to a Ground-Shadow plug-in in your textbook
+	MSelectionList sList;
+	MObject shadingGroupObj;
+
+	sList.clear();
+	MGlobal::getSelectionListByName("initialShadingGroup", sList);
+	sList.getDependNode(0, shadingGroupObj);
+
+	MFnSet shadingGroupFn;
+	shadingGroupFn.setObject(shadingGroupObj);
+
+
 	for (; !iterVtx.isDone(); iterVtx.next()) {
 		MPoint pt = iterVtx.position(MSpace::kWorld);
 		vertIndex = iterVtx.index();
@@ -121,39 +133,57 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 		MFnTransform fnInstance(instance);
 		fnInstance.setTranslation(pt, MSpace::kTransform);
 
+		instanceArray.append(instance);
+
 		double scale[3];
 		fnInstance.getScale(scale);
 		scale[1] = rand() % height + 1;
 		fnInstance.setScale(scale);
 
-		// Initial Shading Group
-		// Refer to a Ground-Shadow plug-in in your textbook
-		MSelectionList sList;
-		sList.clear();
-
-		MGlobal::getSelectionListByName("initialShadingGroup", sList);
-		//sList.getDependNode(0, shadingGroupObj);
-
-		MFnSet shadingGroupFn;
-		//shadingGroupFn.setObject(shadingGroupObj);
 
 		// Connect a duplicated instance with initial shading group during the iteration
 		shadingGroupFn.addMember(instance);
 	}
 
-	return redoIt();
+	return MS::kSuccess;
 }
 
 MStatus SmartModeling::undoIt() {
-	return dgMod.undoIt();
+	MGlobal::displayInfo("undo");
+	MString selectedObjects;
+
+	for (int i = 0; i < instanceArray.length(); i++) {
+	}
+
+	for (int i = 0; i < instanceArray.length(); i++) {
+		MFnDagNode tempNode;
+		tempNode.setObject(instanceArray[i]);
+		selectedObjects += tempNode.name() + " ";
+	}
+
+	MGlobal::executeCommand(MString("select -r ") + selectedObjects);
+	MGlobal::executeCommand("doDelete");
+
+	return MS::kSuccess;
 }
 
 MStatus SmartModeling::redoIt() {
-	return dgMod.doIt();
-}
+	MGlobal::displayInfo("redo");
+	MString selectedObjects;
 
-bool SmartModeling::isUndoable() const {
-	return isQuery ? false : true;
+	
+	for (int i = 0; i < instanceArray.length(); i++) {
+		MFnDagNode tempNode;
+		tempNode.setObject(instanceArray[i]);
+		selectedObjects += tempNode.name() + " ";
+	}
+
+	MGlobal::displayInfo(selectedObjects);
+	MGlobal::executeCommand(MString("select -r ") + selectedObjects);
+	
+
+	// redo 가능하도록 doit에 있는 것을 옮길 필요 있음
+	return MS::kSuccess;
 }
 
 MStatus initializePlugin(MObject obj) {
