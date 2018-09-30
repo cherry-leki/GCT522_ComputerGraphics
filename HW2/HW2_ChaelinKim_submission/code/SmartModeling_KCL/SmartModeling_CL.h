@@ -7,6 +7,7 @@
 #include <maya/MObjectArray.h>
 #include <maya/MSelectionList.h>
 #include <maya/MStringArray.h>
+#include <maya/MDagPath.h>
 #include <maya/MDGModifier.h>
 
 class SmartModeling : public MPxCommand {
@@ -20,13 +21,14 @@ public:
 	static MSyntax newSyntax();
 
 private:
-	MObjectArray instanceArray;		// for Undo/Redo
+	MObjectArray instanceArray;		// for Undo
 	MSelectionList selectPlane;		// Plane selection
 	MSelectionList selectObjects;	// objects selection
 	MStringArray objectArr;
+	MDagPath dagMesh;
 
 	int height;
-
-	MDGModifier dgMod;
+	int *randomHeightArray;
+	int *randomScaleArray;
 };
 #endif // !SMARTMODELING_KCL_H
