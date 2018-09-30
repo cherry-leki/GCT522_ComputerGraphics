@@ -1,9 +1,6 @@
-﻿  SmartModeling_CL.cpp
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\hw2\hw2_chaelinkim\smartmodeling_kcl\smartmodeling_kcl\smartmodeling_cl.cpp(55): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\hw2\hw2_chaelinkim\smartmodeling_kcl\smartmodeling_kcl\smartmodeling_cl.cpp(123): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-     C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\HW2\HW2_ChaelinKim\SmartModeling_KCL\x64\Release\SmartModeling_KCL.lib 라이브러리 및 C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\HW2\HW2_ChaelinKim\SmartModeling_KCL\x64\Release\SmartModeling_KCL.exp 개체를 생성하고 있습니다.
+﻿     C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\HW2\HW2_ChaelinKim\SmartModeling_KCL\x64\Release\SmartModeling_KCL.lib 라이브러리 및 C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\HW2\HW2_ChaelinKim\SmartModeling_KCL\x64\Release\SmartModeling_KCL.exp 개체를 생성하고 있습니다.
   코드를 생성하고 있습니다.
-  1 of 12 functions ( 8.3%) were compiled, the rest were copied from previous compilation.
+  1 of 13 functions ( 7.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
