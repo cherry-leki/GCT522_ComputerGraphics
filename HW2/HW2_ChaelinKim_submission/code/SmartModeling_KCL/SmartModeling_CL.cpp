@@ -72,8 +72,6 @@ MStatus SmartModeling::doIt(const MArgList &args) {
 
 		randomHeightArray[vertIndex] = (rand() % (objectArr.length()));
 		randomScaleArray[vertIndex] = ((rand() % height) + 1);
-		
-		MGlobal::displayInfo(MString("") + randomHeightArray[vertIndex] + ", " + randomScaleArray[vertIndex]);
 	}
 
 	return redoIt();
