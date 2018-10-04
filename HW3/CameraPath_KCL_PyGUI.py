@@ -1,20 +1,46 @@
 import maya.cmds as cmds
+import sys
+import os
 
 # Add target object
 def addTargetObj(*args):
-    print "Add TargetObj"
+    selectedTargetObj = cmds.ls(selection=True)
+    if not selectedTargetObj:
+        print "Please select the target object!"
+        return
+    if len(selectedTargetObj) > 1:
+        print "Please select only one target object"
+        return
+    cmds.textScrollList(targetObj, edit=True, ra=True)
+    cmds.textScrollList(targetObj, edit=True, append=selectedTargetObj)
     
 # Remove target object
 def removeTargetObj(*args):
-    print "Remove TargetObj"
+    cmds.textScrollList(targetObj, edit=True, ra=True)
         
 # Add Curve object
 def addCurve(*args):
-    print "Add Curve"
+    selectedCurve = cmds.ls(selection=True)
+    if not selectedCurve:
+        print "Please select the target object!"
+        return
+    if len(selectedCurve) > 1:
+        print "Please select only one target object"
+        return
+    cmds.textScrollList(targetCurve, edit=True, ra=True)
+    cmds.textScrollList(targetCurve, edit=True, append=selectedCurve)
         
 # Remove Curve object
 def removeCurve(*args):
-    print "Remove Curve"
+    cmds.textScrollList(targetCurve, edit=True, ra=True)
+
+# Place a camera in accordance with direction and distance
+def placeCamera(*args):
+    print "Place Camera"
+
+# Make the camera follow the curve path with keyframes and interval length
+def followPath(*args):
+    print "follow path"
 
 
 ''' Window Setting '''
@@ -38,7 +64,7 @@ cmds.button(label="Remove", p="targetObjLayout", w=55, command=removeTargetObj)
 ''' Curve Layout '''
 cmds.rowLayout("curveLayout", p="mainCol", numberOfColumns = 5)
 cmds.text(label="  Curve", p="curveLayout", w=80, al='left')
-curve = cmds.textScrollList(p="curveLayout", w=300, h=20)
+targetCurve = cmds.textScrollList(p="curveLayout", w=300, h=20)
 cmds.text("",w=5)
 cmds.button(label="Add", p="curveLayout", w=40, command=addCurve)
 cmds.button(label="Remove", p="curveLayout", w=55, command=removeCurve)
