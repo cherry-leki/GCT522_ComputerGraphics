@@ -1,4 +1,7 @@
+import math
+import numpy as np
 import maya.cmds as cmds
+import maya.OpenMaya as om
 import sys
 import os
 
@@ -47,23 +50,41 @@ def placeCamera(*args):
     target = ''.join(target)
     # Target Position
     targetPos = cmds.getAttr(target + '.translate')
-    cameraPos = list(targetPos[0])
-    cameraPos[2] += float(cameraDist)
-
+    targetPos = list(targetPos[0])
+    # Target Rotation
     targetRot = cmds.getAttr(target + '.rotate')
-    cameraRot = list(targetRot[0])
-
-    cameraDirSwitch = { list_cameraPlace[0]: 90, list_cameraPlace[1]: -90,
+    targetRot = list(targetRot[0])
+    cameraDirSwitch = { list_cameraPlace[0]: -90, list_cameraPlace[1]: 90,
                     list_cameraPlace[2]: 0, list_cameraPlace[3]: 180}
     cameraDir = cameraDirSwitch.get(cmds.optionMenu(cameraPlace, q=True, v=True), 0)
-    cameraRot[1] += float(cameraDir)
+    cameraDir += targetRot[1]
+
+    rotMat = [[np.cos(np.deg2rad(cameraDir)), 0, np.sin(np.deg2rad(cameraDir)), 0],
+                [0, 1, 0, 0],
+                [-np.sin(np.deg2rad(cameraDir)), 0, np.cos(np.deg2rad(cameraDir)), 0],
+                [0, 0, 0, 1]]
+    posMat = [[1, 0, 0, 0],
+                [0, 1, 0, 0],
+                [0, 0, 1, float(cameraDist)],
+                [0, 0, 0, 1]]
+    malPosMat = [[1, 0, 0, targetPos[0]],
+                    [0, 1, 0, targetPos[1]],
+                    [0, 0, 1, targetPos[2]],
+                    [0, 0, 0, 1]]
+    cameraPos = np.dot(malPosMat, rotMat)
+    cameraPos = np.dot(cameraPos, posMat)
+    cameraPos = np.dot(cameraPos, np.transpose([0, 0, 0, 1]))
 
     newCamera = cmds.camera()
+    cmds.setAttr(newCamera[0] + '.rotateY', cameraDir)
     cmds.setAttr(newCamera[0] + '.translate', cameraPos[0], cameraPos[1], cameraPos[2], type="double3")
-    cmds.setAttr(newCamera[0] + '.rotate', cameraRot[0], cameraRot[1], cameraRot[2], type="double3")
 
 # Make the camera follow the curve path with keyframes and interval length
 def followPath(*args):
+    # q = om.MQuaternion(cameraDir, om.MVector(0, 1, 0))
+    # euler = q.asEulerRotation()
+    # angles = [math.degrees(angle) for angle in (euler.x, euler.y, euler.z)]
+    # print angles
     print "follow path"
 
 
