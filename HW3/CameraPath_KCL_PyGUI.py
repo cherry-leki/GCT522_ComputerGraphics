@@ -58,10 +58,12 @@ def placeCamera(*args):
                     list_cameraPlace[2]: 0, list_cameraPlace[3]: 180}
     cameraDir = cameraDirSwitch.get(cmds.optionMenu(cameraPlace, q=True, v=True), 0)
     cameraDir += targetRot[1]
+    cameraDirRad = np.deg2rad(cameraDir)
 
-    rotMat = [[np.cos(np.deg2rad(cameraDir)), 0, np.sin(np.deg2rad(cameraDir)), 0],
+    # Transform Matrix
+    rotMat = [[np.cos(cameraDirRad), 0, np.sin(cameraDirRad), 0],
                 [0, 1, 0, 0],
-                [-np.sin(np.deg2rad(cameraDir)), 0, np.cos(np.deg2rad(cameraDir)), 0],
+                [-np.sin(cameraDirRad), 0, np.cos(cameraDirRad), 0],
                 [0, 0, 0, 1]]
     posMat = [[1, 0, 0, 0],
                 [0, 1, 0, 0],
@@ -75,6 +77,7 @@ def placeCamera(*args):
     cameraPos = np.dot(cameraPos, posMat)
     cameraPos = np.dot(cameraPos, np.transpose([0, 0, 0, 1]))
 
+    # Create a camera
     newCamera = cmds.camera()
     cmds.setAttr(newCamera[0] + '.rotateY', cameraDir)
     cmds.setAttr(newCamera[0] + '.translate', cameraPos[0], cameraPos[1], cameraPos[2], type="double3")
