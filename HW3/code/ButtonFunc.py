@@ -6,9 +6,11 @@ import MatrixModule as mm
 reload(mm)
 
 # Add target object
-def addTargetObj(*args):
+def addTargetObj(targetObj, *args):
     selectedTargetObj = cmds.ls(selection=True)
-    if not selectedTargetObj:
+    selectedTargetObjShape = cmds.listRelatives(selectedTargetObj, shapes=True)
+
+    if not selectedTargetObj or cmds.nodeType(selectedTargetObjShape) != "mesh":
         print "Please select the target object!"
         return
     if len(selectedTargetObj) > 1:
@@ -19,30 +21,32 @@ def addTargetObj(*args):
 
 
 # Remove target object
-def removeTargetObj(*args):
+def removeTargetObj(targetObj, *args):
     cmds.textScrollList(targetObj, edit=True, ra=True)
 
 
 # Add Curve object
-def addCurve(*args):
+def addCurve(targetCurve, *args):
     selectedCurve = cmds.ls(selection=True)
-    if not selectedCurve:
-        print "Please select the target object!"
+    selectedCurveShape = cmds.listRelatives(selectedCurve, shapes=True)
+
+    if not selectedCurve or cmds.nodeType(selectedCurveShape) != "nurbsCurve":
+        print "Please select the curve!"
         return
     if len(selectedCurve) > 1:
-        print "Please select only one target object"
+        print "Please select only one curve"
         return
     cmds.textScrollList(targetCurve, edit=True, ra=True)
     cmds.textScrollList(targetCurve, edit=True, append=selectedCurve)
 
 
 # Remove Curve object
-def removeCurve(*args):
+def removeCurve(targetCurve, *args):
     cmds.textScrollList(targetCurve, edit=True, ra=True)
 
 
 # Place a camera in accordance with direction and distance
-def placeCamera(*args):
+def placeCamera(distance, targetObj, cameraPlace, list_cameraPlace, *args):
     cameraDist = cmds.textField(distance, q=True, tx=True)
     if not cameraDist:
         print "Please input the distance"
@@ -78,7 +82,7 @@ def placeCamera(*args):
 
 
 # Make the camera follow the curve path with keyframes and interval length
-def followPath(*args):
+def followPath(targetObj, targetCurve, keyframes, intervals,*args):
     target = ''.join(cmds.textScrollList(targetObj, q=True, ai=True))
     if not target:
         print "Please register the target object!"
