@@ -30,7 +30,6 @@
    ¡Ø If you do not register target object, target curve, keyframes value and interval length value, the error message is shown on history board
 
 
-
 * How functions work
 [ ButtonFunc.py ]
 > function addTargetObj (targetObj)
