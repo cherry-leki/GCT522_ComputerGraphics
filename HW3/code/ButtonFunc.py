@@ -135,7 +135,7 @@ def followPath(targetObj, targetCurve, keyframes, intervals,*args):
     correctAngleFlag = False
     correctAngleValue = 0
 
-    # Calculate camera to look at the target at each keyframe
+    # Calculate camera position and rotation to look at the target at each keyframe
     for itr in range(0, keyframe):
         # Calculate camera's position at each keyframe
         spans = cmds.getAttr(targetCur + '.spans')
@@ -144,7 +144,7 @@ def followPath(targetObj, targetCurve, keyframes, intervals,*args):
         cmds.setAttr(newCamera[0] + '.translate', points[0], points[1], points[2])
         cmds.setKeyframe(newCamera[0], at='translate', t=itr*interval)
 
-        # Set the vector of target object's point and camera's point
+        # Set the vector of camera's point to target object's point
         posVector = [targetPos[0] - points[0],
                     targetPos[1] - points[1],
                     targetPos[2] - points[2]]
