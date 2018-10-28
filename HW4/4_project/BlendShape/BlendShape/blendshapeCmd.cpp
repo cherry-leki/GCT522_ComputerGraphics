@@ -19,7 +19,7 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 
 	// Get the deformer node
 	MSelectionList selDeformer;
-	MGlobal::getSelectionListByName("sjDeformer1", selDeformer);
+	MGlobal::getSelectionListByName("clDeformer1", selDeformer);
 
 	MObject deformerObj;
 	selDeformer.getDependNode(0, deformerObj);
