@@ -59,15 +59,15 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		ArrayBlendMeshs.jumpToElement(i);
 		ArrayBlendWeight.jumpToElement(i);
 
+		// 1
+		MDataHandle mesh = ArrayBlendMeshs.outputValue();
+		MDataHandle weight = ArrayBlendWeight.outputValue();
+
+		// 2
 
 
-
-
-
-
-
-
-
+		// 3
+		arrayWeights.push_back(weight.asFloat());
 		
 	}
 
@@ -86,14 +86,11 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 2. Calculate the target point using the blendshape equation (HW#4 PPT 12p)		
 		// -------------------------------------------------------------------------------- //
 		
-
-
-
-
-
-
-
-
+		for (unsigned int i = 0; i < numSourceMesh; i++) {
+			// point - 우리가 변형시킬 얼굴의 point
+			// arrayBlendPoints의 것들을 불러와야함
+			// 이 두개의 차
+		}
 
 		itGeo.setPosition(point);
 	}
@@ -124,14 +121,14 @@ MStatus BlendMesh::initialize()
 	// * Set the range of weight from 0.0 to 1.0 (float)
 	// --------------------------------------------------------------------------------- //
 
-
-
-
-
-
-
-
-
-
+	aBlendWeight = nAttr.create("weight", "w", MFnNumericData::kFloat, 0.0);
+	nAttr.setArray(true);
+	nAttr.setKeyable(true);
+	nAttr.setUsesArrayDataBuilder(true);
+	nAttr.setMin(0.0);
+	nAttr.setMax(1.0);
+	addAttribute(aBlendWeight);
+	attributeAffects(aBlendWeight, outputGeom);
+	   	  	
 	return MS::kSuccess;
 }
