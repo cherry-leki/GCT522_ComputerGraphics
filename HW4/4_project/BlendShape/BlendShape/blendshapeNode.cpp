@@ -64,7 +64,8 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		MDataHandle weight = ArrayBlendWeight.outputValue();
 
 		// 2
-
+		MFnMesh fnMesh(mesh.asMesh());
+		fnMesh.getPoints(arrayBlendPoints[i], MSpace::kWorld);
 
 		// 3
 		arrayWeights.push_back(weight.asFloat());
@@ -90,6 +91,8 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 			// point - 우리가 변형시킬 얼굴의 point
 			// arrayBlendPoints의 것들을 불러와야함
 			// 이 두개의 차
+			MPoint delta = (point - arrayBlendPoints[i][itGeo.index()]) * arrayWeights[i];
+			point += delta;
 		}
 
 		itGeo.setPosition(point);
