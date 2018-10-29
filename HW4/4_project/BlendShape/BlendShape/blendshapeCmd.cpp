@@ -35,20 +35,30 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 	// 5. Initialize the weight value as 0.0 using the plug
 	// * HINT : you can use 'elementByLogicalIndex' function of MPlug
 	// ------------------------------------------------------------------------------------------------------------------- //
+	
+	//1
+	MPlug createPlug = deformerNode.findPlug("create");
+
+	//2
+	MArrayDataBuilder arrayAttr(deformerObj, length);
+	
+	MDagPath dagPath;
+	MFnTransform transformFn;
+
+	//3
+	MItSelectionList iter(selection, MFn::kNurbsSurface);
+	for (; !iter.isDone(); iter.next()) {
+		//4 Make the connections
+		iter.getDagPath(dagPath);
+		transformFn.setObject(dagPath);
 
 
 
+		MPlug outMeshPlug = deformerNode.findPlug("blendMesh");
+	}
+	
 
-
-
-
-
-
-
-
-
-
-
+	//5
 
 
 	return redoIt();

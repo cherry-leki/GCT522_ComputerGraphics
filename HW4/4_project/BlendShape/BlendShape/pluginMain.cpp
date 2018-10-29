@@ -14,7 +14,7 @@ MStatus initializePlugin( MObject obj )
 
     CHECK_MSTATUS_AND_RETURN_IT( status );
 
-    status = fnPlugin.registerNode( "sjDeformer",
+    status = fnPlugin.registerNode( "clDeformer",
 									 BlendMesh::id,
 									 BlendMesh::creator,
 									 BlendMesh::initialize,

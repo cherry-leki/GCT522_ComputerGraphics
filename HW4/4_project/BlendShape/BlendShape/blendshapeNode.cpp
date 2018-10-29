@@ -56,6 +56,8 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 3. Push the weight to variable 'arrayWeights'						  
 		// ------------------------------------------------------------------------------ //
 
+		MGlobal::displayInfo("To do 2 start!");
+
 		ArrayBlendMeshs.jumpToElement(i);
 		ArrayBlendWeight.jumpToElement(i);
 
@@ -65,11 +67,12 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 
 		// 2
 		MFnMesh fnMesh(mesh.asMesh());
-		fnMesh.getPoints(arrayBlendPoints[i], MSpace::kWorld);
+		fnMesh.getPoints(arrayBlendPoints[i], MSpace::kObject);
 
 		// 3
 		arrayWeights.push_back(weight.asFloat());
 		
+		MGlobal::displayInfo("To do 2 end!");
 	}
 
 	MPoint point;
@@ -87,15 +90,14 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 2. Calculate the target point using the blendshape equation (HW#4 PPT 12p)		
 		// -------------------------------------------------------------------------------- //
 		
+		MGlobal::displayInfo("To do 3 start!");
 		for (unsigned int i = 0; i < numSourceMesh; i++) {
-			// point - 우리가 변형시킬 얼굴의 point
-			// arrayBlendPoints의 것들을 불러와야함
-			// 이 두개의 차
 			MPoint delta = (point - arrayBlendPoints[i][itGeo.index()]) * arrayWeights[i];
 			point += delta;
 		}
 
 		itGeo.setPosition(point);
+		MGlobal::displayInfo("To do 3 end!");
 	}
 
 
@@ -124,7 +126,7 @@ MStatus BlendMesh::initialize()
 	// * Set the range of weight from 0.0 to 1.0 (float)
 	// --------------------------------------------------------------------------------- //
 
-	aBlendWeight = nAttr.create("weight", "w", MFnNumericData::kFloat, 0.0);
+	aBlendWeight = nAttr.create("blendWeight", "bW", MFnNumericData::kFloat, 0.0);
 	nAttr.setArray(true);
 	nAttr.setKeyable(true);
 	nAttr.setUsesArrayDataBuilder(true);
