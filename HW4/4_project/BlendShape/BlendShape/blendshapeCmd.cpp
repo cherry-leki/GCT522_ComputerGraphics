@@ -37,29 +37,55 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 	// ------------------------------------------------------------------------------------------------------------------- //
 	
 	//1
-	MPlug createPlug = deformerNode.findPlug("create");
-
+	MPlug blendMeshPlug = deformerNode.findPlug("blendMesh");
+	MPlug blendWeightPlug = deformerNode.findPlug("blendWeight");
 	//2
-	MArrayDataBuilder arrayAttr(deformerObj, length);
-	
-	MDagPath dagPath;
-	MFnTransform transformFn;
+
+	MArrayDataHandle meshDataHandle = blendMeshPlug.asMDataHandle();
+	MArrayDataHandle meshWeightHandle = blendWeightPlug.asMDataHandle();
+
+	MArrayDataBuilder meshBuilder(blendMeshPlug, length);
+	MArrayDataBuilder weightBuilder(blendWeightPlug, length);
+
+	for (int attrNum = 0; attrNum < length; attrNum++) {
+		MDataHandle meshHandle = meshBuilder.addElement(attrNum);
+		MDataHandle weightHandle = weightBuilder.addElement(attrNum);
+		MObject outmeshData;
+
+		meshHandle.set(outmeshData);
+		weightHandle.set(0.0f);
+	}
+	meshDataHandle.set(meshBuilder);
+	meshWeightHandle.set(weightBuilder);
+	meshDataHandle.setAllClean();
+	meshWeightHandle.setAllClean();
+
 
 	//3
-	MItSelectionList iter(selection, MFn::kNurbsSurface);
-	for (; !iter.isDone(); iter.next()) {
+	MDagPath dagPath;
+	unsigned int count;
+
+	MItSelectionList iter(selection, MFn::kMesh);
+	for (iter.reset(), count=0; !iter.isDone(); iter.next(), count++) {
+		MDagPath shapePath;
+		iter.getDagPath(shapePath);
+
+		MFnMesh fnMesh(shapePath);
+
+		if (fnMesh.name() == "clDeformer1") continue;
+
+		MPlug srcOutMesh = fnMesh.findPlug("outMesh");
+		MGlobal::displayInfo("name: " + srcOutMesh.name());
+
+		MPlug meshElement = blendMeshPlug.elementByLogicalIndex(count);
+		MPlug weightElement = blendWeightPlug.elementByLogicalIndex(count);
+
 		//4 Make the connections
-		iter.getDagPath(dagPath);
-		transformFn.setObject(dagPath);
-
-
-
-		MPlug outMeshPlug = deformerNode.findPlug("blendMesh");
+		dgMod.connect(srcOutMesh, meshElement);
+		weightElement.setFloat(0.0f);
 	}
-	
 
 	//5
-
 
 	return redoIt();
 }

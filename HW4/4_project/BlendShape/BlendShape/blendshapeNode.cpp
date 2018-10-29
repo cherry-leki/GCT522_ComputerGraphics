@@ -62,15 +62,15 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		ArrayBlendWeight.jumpToElement(i);
 
 		// 1
-		MDataHandle mesh = ArrayBlendMeshs.outputValue();
-		MDataHandle weight = ArrayBlendWeight.outputValue();
+		MDataHandle meshHandle = ArrayBlendMeshs.inputValue(&status);
+		MDataHandle weightHandle = ArrayBlendWeight.inputValue(&status);
 
 		// 2
-		MFnMesh fnMesh(mesh.asMesh());
+		MFnMesh fnMesh(meshHandle.asMesh());
 		fnMesh.getPoints(arrayBlendPoints[i], MSpace::kObject);
 
 		// 3
-		arrayWeights.push_back(weight.asFloat());
+		arrayWeights.push_back(weightHandle.asFloat());
 		
 		MGlobal::displayInfo("To do 2 end!");
 	}
@@ -90,14 +90,12 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 2. Calculate the target point using the blendshape equation (HW#4 PPT 12p)		
 		// -------------------------------------------------------------------------------- //
 		
-		MGlobal::displayInfo("To do 3 start!");
 		for (unsigned int i = 0; i < numSourceMesh; i++) {
 			MPoint delta = (point - arrayBlendPoints[i][itGeo.index()]) * arrayWeights[i];
 			point += delta;
 		}
 
 		itGeo.setPosition(point);
-		MGlobal::displayInfo("To do 3 end!");
 	}
 
 
