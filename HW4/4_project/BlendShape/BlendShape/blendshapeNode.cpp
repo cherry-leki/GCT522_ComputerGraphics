@@ -1,4 +1,5 @@
 #include "blendshapeNode.h"
+#include <string>
 
 // For local testing of nodes you can use any identifier between
 // 0x00000000 and 0x0007ffff, but for any node that you plan to use for
@@ -56,20 +57,20 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 3. Push the weight to variable 'arrayWeights'						  
 		// ------------------------------------------------------------------------------ //
 
+		// Get the mesh and weight of i-th blendshape
 		ArrayBlendMeshs.jumpToElement(i);
 		ArrayBlendWeight.jumpToElement(i);
 
-		// 1
 		MDataHandle meshHandle = ArrayBlendMeshs.inputValue(&status);
 		MDataHandle weightHandle = ArrayBlendWeight.inputValue(&status);
 
-		// 2
+		// Push the vertex points of the mesh to the variable 'arrayBlendPoints'
 		MPointArray tmpPontArray;
 		MFnMesh fnMesh(meshHandle.asMesh());
 		fnMesh.getPoints(tmpPontArray, MSpace::kObject);
 		arrayBlendPoints.push_back(tmpPontArray);
 
-		// 3
+		// Push the weight to the variable 'arrayWeight'
 		arrayWeights.push_back(weightHandle.asFloat());
 	}
 
@@ -88,8 +89,10 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 2. Calculate the target point using the blendshape equation (HW#4 PPT 12p)		
 		// -------------------------------------------------------------------------------- //
 		
+		// Iterate over all source meshes
 		for (unsigned int i = 0; i < numSourceMesh; i++) {
-			MPoint delta = (point - arrayBlendPoints[i][itGeo.index()]) * arrayWeights[i];
+			// Calculate the target point using the blendshape equation
+			MPoint delta = (arrayBlendPoints[i][itGeo.index()] - point) * arrayWeights[i] * env * w;
 			point += delta;
 		}
 
@@ -121,6 +124,7 @@ MStatus BlendMesh::initialize()
 	// * Set the range of weight from 0.0 to 1.0 (float)
 	// --------------------------------------------------------------------------------- //
 
+	// Create attribute for weights
 	aBlendWeight = nAttr.create("blendWeight", "bW", MFnNumericData::kFloat, 0.0);
 	nAttr.setArray(true);
 	nAttr.setKeyable(true);

@@ -10,7 +10,7 @@ MStatus initializePlugin( MObject obj )
 
     MFnPlugin fnPlugin( obj, "GCT522", "1.0", "Any" );
 
-    status = fnPlugin.registerCommand("blendshapeCmd", blendshapeCmd::creator);
+    status = fnPlugin.registerCommand("doBlendShape", blendshapeCmd::creator);
 
     CHECK_MSTATUS_AND_RETURN_IT( status );
 

@@ -36,11 +36,11 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 	// * HINT : you can use 'elementByLogicalIndex' function of MPlug
 	// ------------------------------------------------------------------------------------------------------------------- //
 	
-	//1
+	// Get plugs to access the attributes of the deformer node
 	MPlug blendMeshPlug = deformerNode.findPlug("blendMesh");
 	MPlug blendWeightPlug = deformerNode.findPlug("blendWeight");
-	//2
 
+	// Pre-allocate the size of array attribues
 	MArrayDataHandle meshDataHandle = blendMeshPlug.asMDataHandle();
 	MArrayDataHandle meshWeightHandle = blendWeightPlug.asMDataHandle();
 
@@ -61,7 +61,7 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 	meshWeightHandle.setAllClean();
 
 
-	//3
+	// Iterate over all selected source meshes
 	MDagPath dagPath;
 	unsigned int count;
 
@@ -73,17 +73,17 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 		MFnMesh fnMesh(shapePath);
 
 		MPlug srcOutMesh = fnMesh.findPlug("outMesh");
-		MGlobal::displayInfo("name: " + srcOutMesh.name());
 
 		MPlug meshElement = blendMeshPlug.elementByLogicalIndex(count);
 		MPlug weightElement = blendWeightPlug.elementByLogicalIndex(count);
 
-		//4 Make the connections
+		// Make a connection from the plug of each source outMesh
+		// to the plug of the corresponding attribute of the deformer
 		dgMod.connect(srcOutMesh, meshElement);
+
+		// Initialize the weight value as 0.0f
 		weightElement.setFloat(0.0f);
 	}
-
-	//5
 
 	return redoIt();
 }
