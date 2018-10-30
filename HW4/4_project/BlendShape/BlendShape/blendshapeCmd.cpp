@@ -72,8 +72,6 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 
 		MFnMesh fnMesh(shapePath);
 
-		if (fnMesh.name() == "clDeformer1") continue;
-
 		MPlug srcOutMesh = fnMesh.findPlug("outMesh");
 		MGlobal::displayInfo("name: " + srcOutMesh.name());
 

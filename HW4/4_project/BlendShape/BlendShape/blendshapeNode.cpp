@@ -56,8 +56,6 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 3. Push the weight to variable 'arrayWeights'						  
 		// ------------------------------------------------------------------------------ //
 
-		MGlobal::displayInfo("To do 2 start!");
-
 		ArrayBlendMeshs.jumpToElement(i);
 		ArrayBlendWeight.jumpToElement(i);
 
@@ -66,13 +64,13 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		MDataHandle weightHandle = ArrayBlendWeight.inputValue(&status);
 
 		// 2
+		MPointArray tmpPontArray;
 		MFnMesh fnMesh(meshHandle.asMesh());
-		fnMesh.getPoints(arrayBlendPoints[i], MSpace::kObject);
+		fnMesh.getPoints(tmpPontArray, MSpace::kObject);
+		arrayBlendPoints.push_back(tmpPontArray);
 
 		// 3
 		arrayWeights.push_back(weightHandle.asFloat());
-		
-		MGlobal::displayInfo("To do 2 end!");
 	}
 
 	MPoint point;
@@ -97,7 +95,6 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 
 		itGeo.setPosition(point);
 	}
-
 
 
 	return MS::kSuccess;
