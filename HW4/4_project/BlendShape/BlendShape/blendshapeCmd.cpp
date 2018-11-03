@@ -40,7 +40,7 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 	MPlug blendMeshPlug = deformerNode.findPlug("blendMesh");
 	MPlug blendWeightPlug = deformerNode.findPlug("blendWeight");
 
-	// Pre-allocate the size of array attribues
+	// Pre-allocate the size of array attributes
 	MArrayDataHandle meshDataHandle = blendMeshPlug.asMDataHandle();
 	MArrayDataHandle meshWeightHandle = blendWeightPlug.asMDataHandle();
 
@@ -57,8 +57,6 @@ MStatus blendshapeCmd::doIt(const MArgList &args)
 	}
 	meshDataHandle.set(meshBuilder);
 	meshWeightHandle.set(weightBuilder);
-	meshDataHandle.setAllClean();
-	meshWeightHandle.setAllClean();
 
 
 	// Iterate over all selected source meshes
