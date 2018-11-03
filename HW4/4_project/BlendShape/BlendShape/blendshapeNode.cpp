@@ -89,14 +89,16 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// 2. Calculate the target point using the blendshape equation (HW#4 PPT 12p)		
 		// -------------------------------------------------------------------------------- //
 		
+		MPoint targetPoint = point;
+
 		// Iterate over all source meshes
 		for (unsigned int i = 0; i < numSourceMesh; i++) {
 			// Calculate the target point using the blendshape equation
 			MPoint delta = (arrayBlendPoints[i][itGeo.index()] - point) * arrayWeights[i] * env * w;
-			point += delta;
+			targetPoint += delta;
 		}
 
-		itGeo.setPosition(point);
+		itGeo.setPosition(targetPoint);
 	}
 
 
