@@ -65,10 +65,10 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		MDataHandle weightHandle = ArrayBlendWeight.inputValue(&status);
 
 		// Push the vertex points of the mesh to the variable 'arrayBlendPoints'
-		MPointArray tmpPontArray;
+		MPointArray tmpPointArray;
 		MFnMesh fnMesh(meshHandle.asMesh());
-		fnMesh.getPoints(tmpPontArray, MSpace::kObject);
-		arrayBlendPoints.push_back(tmpPontArray);
+		fnMesh.getPoints(tmpPointArray, MSpace::kObject);
+		arrayBlendPoints.push_back(tmpPointArray);
 
 		// Push the weight to the variable 'arrayWeight'
 		arrayWeights.push_back(weightHandle.asFloat());
