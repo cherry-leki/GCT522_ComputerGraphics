@@ -94,6 +94,7 @@ MStatus BlendMesh::deform(MDataBlock& data, MItGeometry& itGeo,
 		// Iterate over all source meshes
 		for (unsigned int i = 0; i < numSourceMesh; i++) {
 			// Calculate the target point using the blendshape equation
+			// New face = neutral face + ( sum(deformed face - neutral face) * weight )
 			MPoint delta = (arrayBlendPoints[i][itGeo.index()] - point) * arrayWeights[i] * env * w;
 			targetPoint += delta;
 		}
