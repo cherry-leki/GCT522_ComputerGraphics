@@ -510,27 +510,25 @@ MStatus PhongNode::compute(
 	}
 
 	//*** Start here ***//
+	// add toon shading
+	if		(diffuseR >= 0.60f)	diffuseR = 1.0f;
+	else if (diffuseR >= 0.40f)	diffuseR = 0.60f;
+	else if (diffuseR >= 0.20f) diffuseR = 0.40f;
+	else						diffuseR = 0.20f;
 
-	// factor incident light with surface color and add incandescence
+	if		(diffuseG >= 0.60f)	diffuseG = 1.0f;
+	else if (diffuseG >= 0.40f)	diffuseG = 0.60f;
+	else if (diffuseG >= 0.20f) diffuseG = 0.40f;
+	else						diffuseG = 0.20f;
 
-	if		(diffuseR >= 0.80f)	diffuseR = 1.0f;
-	else if (diffuseR >= 0.60f)	diffuseR = 0.80f;
-	else if (diffuseR >= 0.40f) diffuseR = 0.60f;
-	else						diffuseR = 0.40f;
+	if		(diffuseB >= 0.60f)	diffuseB = 1.0f;
+	else if (diffuseB >= 0.40f)	diffuseB = 0.60f;
+	else if (diffuseB >= 0.20f) diffuseB = 0.40f;
+	else						diffuseB = 0.20f;
 
-	if (diffuseG >= 0.80f)	diffuseG = 1.0f;
-	else if (diffuseG >= 0.60f)	diffuseG = 0.80f;
-	else if (diffuseG >= 0.40f) diffuseG = 0.60f;
-	else						diffuseG = 0.40f;
-
-	if (diffuseB >= 0.80f)	diffuseB = 1.0f;
-	else if (diffuseB >= 0.60f)	diffuseB = 0.80f;
-	else if (diffuseB >= 0.40f) diffuseB = 0.60f;
-	else						diffuseB = 0.40f;
-
-	resultColor[0] = (diffuseR * surfaceColor[0]) + incandescence[0];
-	resultColor[1] = (diffuseG * surfaceColor[1]) + incandescence[1];
-	resultColor[2] = (diffuseB * surfaceColor[2]) + incandescence[2];
+	resultColor[0] = diffuseR * surfaceColor[0];
+	resultColor[1] = diffuseG * surfaceColor[1];
+	resultColor[2] = diffuseB * surfaceColor[2];
 
 	// add the reflection color
 	if (reflectGain > 0.0) {
@@ -583,9 +581,8 @@ MStatus PhongNode::compute(
 			reflectTransparency);
 
 		
-
-		// add in the reflection color
-		if (refVector * normal < 0.3) {
+		// add silhouette edge and add in the reflection color
+		if (refVector * normal < 0.33f) {
 			resultColor[0] = 0;
 			resultColor[1] = 0;
 			resultColor[2] = 0;
@@ -597,9 +594,7 @@ MStatus PhongNode::compute(
 		}
 		
 	}
-
 	//*** End here ***//
-
 
 	// set ouput color attribute
 	MDataHandle outColorHandle = block.outputValue(aOutColor);
