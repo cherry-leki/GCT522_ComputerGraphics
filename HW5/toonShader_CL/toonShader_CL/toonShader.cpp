@@ -512,39 +512,21 @@ MStatus PhongNode::compute(
 	//*** Start here ***//
 
 	// factor incident light with surface color and add incandescence
-	/*resultColor[0] = (diffuseR * surfaceColor[0]) + specularR + incandescence[0];
-	resultColor[1] = (diffuseG * surfaceColor[1]) + specularG + incandescence[1];
-	resultColor[2] = (diffuseB * surfaceColor[2]) + specularB + incandescence[2];*/
 
-	if (diffuseR <= 0.33f) {
-		diffuseR = 0.33f;
-	}
-	else if (diffuseR <= 0.66f) {
-		diffuseR = 0.66f;
-	}
-	else {
-		diffuseR = 1;
-	}
+	if		(diffuseR >= 0.80f)	diffuseR = 1.0f;
+	else if (diffuseR >= 0.60f)	diffuseR = 0.80f;
+	else if (diffuseR >= 0.40f) diffuseR = 0.60f;
+	else						diffuseR = 0.40f;
 
-	if (diffuseG <= 0.33f) {
-		diffuseG = 0.33f;
-	}
-	else if (diffuseG <= 0.66f) {
-		diffuseG = 0.66f;
-	}
-	else {
-		diffuseG = 1;
-	}
+	if (diffuseG >= 0.80f)	diffuseG = 1.0f;
+	else if (diffuseG >= 0.60f)	diffuseG = 0.80f;
+	else if (diffuseG >= 0.40f) diffuseG = 0.60f;
+	else						diffuseG = 0.40f;
 
-	if (diffuseB <= 0.33f) {
-		diffuseB = 0.33f;
-	}
-	else if (diffuseB <= 0.66f) {
-		diffuseB = 0.66f;
-	}
-	else {
-		diffuseB = 1;
-	}
+	if (diffuseB >= 0.80f)	diffuseB = 1.0f;
+	else if (diffuseB >= 0.60f)	diffuseB = 0.80f;
+	else if (diffuseB >= 0.40f) diffuseB = 0.60f;
+	else						diffuseB = 0.40f;
 
 	resultColor[0] = (diffuseR * surfaceColor[0]) + incandescence[0];
 	resultColor[1] = (diffuseG * surfaceColor[1]) + incandescence[1];
@@ -578,7 +560,7 @@ MStatus PhongNode::compute(
 		MFloatVector& triangleNormal = block.inputValue(aTriangleNormalCamera).asFloatVector();
 
 		// compute reflected ray
-		MFloatVector l = direction;
+		MFloatVector l = -direction;
 		float dot = l * normal;
 		if (dot < 0.0) dot = -dot;
 		MFloatVector refVector = 2 * normal * dot - l; 	// reflection ray
@@ -600,10 +582,20 @@ MStatus PhongNode::compute(
 			reflectColor,	// output color and transp
 			reflectTransparency);
 
+		
+
 		// add in the reflection color
-		resultColor[0] += reflectGain * (reflectColor[0]);
-		resultColor[1] += reflectGain * (reflectColor[1]);
-		resultColor[2] += reflectGain * (reflectColor[2]);
+		if (refVector * normal < 0.3) {
+			resultColor[0] = 0;
+			resultColor[1] = 0;
+			resultColor[2] = 0;
+		}
+		else {
+			resultColor[0] += reflectGain * (reflectColor[0]);
+			resultColor[1] += reflectGain * (reflectColor[1]);
+			resultColor[2] += reflectGain * (reflectColor[2]);
+		}
+		
 	}
 
 	//*** End here ***//
