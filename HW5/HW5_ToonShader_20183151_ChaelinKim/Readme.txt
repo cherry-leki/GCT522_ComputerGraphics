@@ -33,6 +33,6 @@
 			If the result(refVector * normal) is smaller than the threshold, the resultColor value is set to (0, 0, 0) (black)
 			In this code, the threshold value is set to 0.3f arbitrarily.
 5. Click the "toonNode" material and change the color what you want.
-6. Drag the material(with click mouse right button) to an object you want to apply.
+6. Drag the material(with click mouse middle button) to an object you want to apply.
 7. Click the "Render View" and see the result image
    (Before that, "Render Using" parameter in Render Settings is set to the"Maya Software") 
