@@ -34,7 +34,7 @@
 //
 // DESCRIPTION:
 // 
-// Produces dependency graph node PhongNode
+// Produces dependency graph node ToonNode
 
 // This node is an example of a Phong shader and how to build a dependency node as a surface shader in Maya.
 
@@ -45,11 +45,11 @@
 //
 ///////////////////////////////////////////////////////
 
-class PhongNode : public MPxNode
+class ToonNode : public MPxNode
 {
 public:
-	PhongNode();
-	virtual           ~PhongNode();
+	ToonNode();
+	virtual           ~ToonNode();
 
 	virtual MStatus   compute(const MPlug&, MDataBlock&);
 	virtual void      postConstructor();
@@ -93,37 +93,37 @@ private:
 };
 
 // Static data
-MTypeId PhongNode::id(0x81001);
+MTypeId ToonNode::id(0x81001);
 
 // Attributes
-MObject PhongNode::aColor;
-MObject PhongNode::aTranslucenceCoeff;
-MObject PhongNode::aDiffuseReflectivity;
-MObject PhongNode::aIncandescence;
-MObject PhongNode::aOutColor;
-MObject PhongNode::aPointCamera;
-MObject PhongNode::aNormalCamera;
-MObject PhongNode::aLightData;
-MObject PhongNode::aLightDirection;
-MObject PhongNode::aLightIntensity;
-MObject PhongNode::aLightAmbient;
-MObject PhongNode::aLightDiffuse;
-MObject PhongNode::aLightSpecular;
-MObject PhongNode::aLightShadowFraction;
-MObject PhongNode::aPreShadowIntensity;
-MObject PhongNode::aLightBlindData;
-MObject PhongNode::aPower;
-MObject PhongNode::aSpecularity;
+MObject ToonNode::aColor;
+MObject ToonNode::aTranslucenceCoeff;
+MObject ToonNode::aDiffuseReflectivity;
+MObject ToonNode::aIncandescence;
+MObject ToonNode::aOutColor;
+MObject ToonNode::aPointCamera;
+MObject ToonNode::aNormalCamera;
+MObject ToonNode::aLightData;
+MObject ToonNode::aLightDirection;
+MObject ToonNode::aLightIntensity;
+MObject ToonNode::aLightAmbient;
+MObject ToonNode::aLightDiffuse;
+MObject ToonNode::aLightSpecular;
+MObject ToonNode::aLightShadowFraction;
+MObject ToonNode::aPreShadowIntensity;
+MObject ToonNode::aLightBlindData;
+MObject ToonNode::aPower;
+MObject ToonNode::aSpecularity;
 
-MObject PhongNode::aRayOrigin;
-MObject PhongNode::aRayDirection;
-MObject PhongNode::aObjectId;
-MObject PhongNode::aRaySampler;
-MObject PhongNode::aRayDepth;
+MObject ToonNode::aRayOrigin;
+MObject ToonNode::aRayDirection;
+MObject ToonNode::aObjectId;
+MObject ToonNode::aRaySampler;
+MObject ToonNode::aRayDepth;
 
-MObject PhongNode::aReflectGain;
+MObject ToonNode::aReflectGain;
 
-MObject PhongNode::aTriangleNormalCamera;
+MObject ToonNode::aTriangleNormalCamera;
 
 #define MAKE_INPUT(attr)						\
     CHECK_MSTATUS ( attr.setKeyable(true) );  	\
@@ -140,7 +140,7 @@ MObject PhongNode::aTriangleNormalCamera;
 //
 // DESCRIPTION:
 ///////////////////////////////////////////////////////
-void PhongNode::postConstructor()
+void ToonNode::postConstructor()
 {
 	setMPSafe(true);
 }
@@ -148,29 +148,29 @@ void PhongNode::postConstructor()
 //
 // DESCRIPTION:
 ///////////////////////////////////////////////////////
-PhongNode::PhongNode()
+ToonNode::ToonNode()
 {
 }
 
 //
 // DESCRIPTION:
 ///////////////////////////////////////////////////////
-PhongNode::~PhongNode()
+ToonNode::~ToonNode()
 {
 }
 
 //
 // DESCRIPTION:
 ///////////////////////////////////////////////////////
-void * PhongNode::creator()
+void * ToonNode::creator()
 {
-	return new PhongNode();
+	return new ToonNode();
 }
 
 //
 // DESCRIPTION:
 ///////////////////////////////////////////////////////
-MStatus PhongNode::initialize()
+MStatus ToonNode::initialize()
 {
 	MFnNumericAttribute nAttr;
 	MFnLightDataAttribute lAttr;
@@ -385,7 +385,7 @@ MStatus PhongNode::initialize()
 //
 // DESCRIPTION:
 ///////////////////////////////////////////////////////
-MStatus PhongNode::compute(
+MStatus ToonNode::compute(
 	const MPlug&      plug,
 	MDataBlock& block)
 {
@@ -510,7 +510,7 @@ MStatus PhongNode::compute(
 	}
 
 	//*** Start here ***//
-	// add toon shading
+	// add toon shading with step function
 	if		(diffuseR >= 0.60f)	diffuseR = 1.0f;
 	else if (diffuseR >= 0.40f)	diffuseR = 0.60f;
 	else if (diffuseR >= 0.20f) diffuseR = 0.40f;
@@ -612,16 +612,16 @@ static const MString sRegistrantId("toonShaderPlugin");
 ///////////////////////////////////////////////////////
 MStatus initializePlugin(MObject obj)
 {
-	const MString UserClassify("shader/surface:drawdb/shader/surface/phongNode");
+	const MString UserClassify("shader/surface:drawdb/shader/surface/toonNode");
 
 	MFnPlugin plugin(obj, PLUGIN_COMPANY, "4.5", "Any");
-	CHECK_MSTATUS(plugin.registerNode("toonNode", PhongNode::id,
-		PhongNode::creator, PhongNode::initialize,
+	CHECK_MSTATUS(plugin.registerNode("toonNode", ToonNode::id,
+		ToonNode::creator, ToonNode::initialize,
 		MPxNode::kDependNode, &UserClassify));
 
 	CHECK_MSTATUS(
 		MHWRender::MDrawRegistry::registerSurfaceShadingNodeOverrideCreator(
-			"drawdb/shader/surface/phongNode",
+			"drawdb/shader/surface/toonNode",
 			sRegistrantId,
 			toonShaderOverride::creator));
 
@@ -634,10 +634,10 @@ MStatus initializePlugin(MObject obj)
 MStatus uninitializePlugin(MObject obj)
 {
 	MFnPlugin plugin(obj);
-	CHECK_MSTATUS(plugin.deregisterNode(PhongNode::id));
+	CHECK_MSTATUS(plugin.deregisterNode(ToonNode::id));
 
 	CHECK_MSTATUS(MHWRender::MDrawRegistry::deregisterSurfaceShadingNodeOverrideCreator(
-		"drawdb/shader/surface/phongNode", sRegistrantId));
+		"drawdb/shader/surface/toonNode", sRegistrantId));
 
 	return MS::kSuccess;
 }
