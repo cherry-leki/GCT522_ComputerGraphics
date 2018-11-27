@@ -5,6 +5,7 @@ import os
 from os.path import basename
 
 ''' Funtion Part '''
+# For Exporting Source Animation Data File
 def exportSrcAni(*args):
     blendNodeName = cmds.textField(srcBlendNode, q=True, text=True)
     fileName = cmds.textField(srcFileName, q=True, text=True)
@@ -12,6 +13,17 @@ def exportSrcAni(*args):
     mel.eval("FRRBlendExport -bn " + blendNodeName +
                             " -bfn " + fileName +
                             " -f " + 360)
+
+# For Exporting Target Range Of Expression File
+def exportTrgROE(*args):
+    datFilter = "*.dat"
+    file_path = cmds.fileDialog2(ff=datFilter, dialogStyle=1,
+                                fileMode=1, caption="Import Target ROE file")
+    file_path = file_path[0]
+    fileName = file_path.split("/")
+    fileName = fileName[-1]
+    cmds.textField(trgROECtrlList, edit=True, tx=fileName)
+
 
 ''' GUI Part '''
 ''' Window Setting '''
@@ -64,9 +76,9 @@ cmds.frameLayout("exportTrgROE", l="Export Range of Expression File",
                 p="mainLayout", nch=2, cll=True, w=270)
 cmds.rowColumnLayout("exportTrgROEList", p="exportTrgROE", nc=2, cw=[(1,100), (2,150)])
 cmds.text(l="Ctrl List:")
-cmds.button(l="Import File")
+cmds.button(l="Import File", c=exportTrgROE)
 cmds.separator(style='none')
-trgROEBlendNode = cmds.textField("trgROEBlendNodeTxtField", tx="kokoCtrlList.dat")
+trgROECtrlList = cmds.textField("trgROECtrlListTxtField", tx="kokoCtrlList.dat")
 cmds.text(l="FileName:")
 trgROEFileName = cmds.textField("trgROEFramesTxtField", tx="kokoROE.dat")
 cmds.text(l="# of Sets:")
