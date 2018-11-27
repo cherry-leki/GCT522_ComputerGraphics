@@ -4,9 +4,14 @@ import maya.mel as mel
 import os
 from os.path import basename
 
-# ''' Funtion Part '''
-# def exportSrcAni(*args):
-
+''' Funtion Part '''
+def exportSrcAni(*args):
+    blendNodeName = cmds.textField(srcBlendNode, q=True, text=True)
+    fileName = cmds.textField(srcFileName, q=True, text=True)
+    frame = cmds.intField(srcFrames, q=True, value=True)
+    mel.eval("FRRBlendExport -bn " + blendNodeName +
+                            " -bfn " + fileName +
+                            " -f " + 360)
 
 ''' GUI Part '''
 ''' Window Setting '''
@@ -21,12 +26,12 @@ cmds.frameLayout("exportSource", l="Export Source Animation Data File",
                 p="mainLayout", nch=2, cll=True, w=270)
 cmds.rowColumnLayout("exportSourceList", p="exportSource", nc=2, cw=[(1,100), (2,150)])
 cmds.text(l="FileName:")
-srcFileName = cmds.textField("srcFileNametxtField", tx="humanSourceAnimation.dat")
+srcFileName = cmds.textField("srcFileNameTxtField", tx="humanSourceAnimation.dat")
 cmds.text(l="BlendNode:")
-srcBlendNode = cmds.textField("srcBlendNodetxtField", tx="targetBlend")
+srcBlendNode = cmds.textField("srcBlendNodeTxtField", tx="targetBlend")
 cmds.text(l="Frames:")
-srcFrames = cmds.textField("srcFramestxtField", tx="360")
-cmds.button(l="Export Source Animation Data", w=250)
+srcFrames = cmds.intField("srcFramesIntField", v=360)
+cmds.button(l="Export Source Animation Data", w=250, c=exportSrcAni)
 
 cmds.separator(style='none', height=5, p="mainLayout")
 
@@ -35,11 +40,11 @@ cmds.frameLayout("exportSrcROE", l="Export Range of Expression File",
                 p="mainLayout", nch=2, cll=True, w=270)
 cmds.rowColumnLayout("exportROEList", p="exportSrcROE", nc=2, cw=[(1,100), (2,150)])
 cmds.text(l="FileName:")
-srcROEFileName = cmds.textField("srcROEFileNametxtField", tx="humanROE.dat")
+srcROEFileName = cmds.textField("srcROEFileNameTxtField", tx="humanROE.dat")
 cmds.text(l="BlendNode:")
-srcROEBlendNode = cmds.textField("srcROEBlendNodetxtField", tx="targetBlend")
+srcROEBlendNode = cmds.textField("srcROEBlendNodeTxtField", tx="targetBlend")
 cmds.text(l="Frames:")
-srcROEFrames = cmds.textField("srcROEFramestxtField", tx="36")
+srcROEFrames = cmds.intField("srcROEFramesIntField", v=36)
 cmds.button(l="Export Source ROE", w=250)
 
 cmds.separator(style='none', height=5, p="mainLayout")
@@ -49,7 +54,7 @@ cmds.frameLayout("exportTarget", l="Export Target CV List File",
                 p="mainLayout", nch=2, cll=True, w=270)
 cmds.rowColumnLayout("exportTargetList", p="exportTarget", nc=2, cw=[(1,100), (2,150)])
 cmds.text(l="FileName:")
-trgFileName = cmds.textField("trgFileNametxtField", tx="kokoCtrlList.dat")
+trgFileName = cmds.textField("trgFileNameTxtField", tx="kokoCtrlList.dat")
 cmds.button(l="Export Target CV List", w=250)
 
 cmds.separator(style='none', height=5, p="mainLayout")
@@ -61,11 +66,11 @@ cmds.rowColumnLayout("exportTrgROEList", p="exportTrgROE", nc=2, cw=[(1,100), (2
 cmds.text(l="Ctrl List:")
 cmds.button(l="Import File")
 cmds.separator(style='none')
-trgROEBlendNode = cmds.textField("trgROEBlendNodetxtField", tx="kokoCtrlList.dat")
+trgROEBlendNode = cmds.textField("trgROEBlendNodeTxtField", tx="kokoCtrlList.dat")
 cmds.text(l="FileName:")
-trgROEFileName = cmds.textField("trgROEFramestxtField", tx="kokoROE.dat")
+trgROEFileName = cmds.textField("trgROEFramesTxtField", tx="kokoROE.dat")
 cmds.text(l="# of Sets:")
-trgROEFileName = cmds.textField("trgROESetstxtField", tx="36")
+trgROEFileName = cmds.intField("trgROESetsIntField", v=36)
 cmds.button(l="Export Target ROE", w=250)
 
 cmds.separator(style='none', height=5, p="mainLayout")
@@ -77,17 +82,17 @@ cmds.rowColumnLayout("finalResultList", p="finalResult", nc=2, cw=[(1,100), (2,1
 cmds.text(l="Source ROE File:")
 cmds.button(l="Source ROE Import")
 cmds.separator(style='none')
-srcROEFile = cmds.textField("srcROEFiletxtField")
+srcROEFile = cmds.textField("srcROEFileTxtField")
 cmds.text(l="Target ROE File:")
 cmds.button(l="Target ROE Import")
 cmds.separator(style='none')
-trgROEFile = cmds.textField("trgROEFiletxtField")
+trgROEFile = cmds.textField("trgROEFileTxtField")
 cmds.text(l="Source Data File:")
 cmds.button(l="Source Animation Import")
 cmds.separator(style='none')
-srcAniFile = cmds.textField("srcAnitxtField")
+srcAniFile = cmds.textField("srcAniTxtField")
 cmds.text(l="Final Data File:")
-finalDataFile = cmds.textField("finalDataFiletxtField", tx="kokoFinalResult.dat")
+finalDataFile = cmds.textField("finalDataFileTxtField", tx="kokoFinalResult.dat")
 cmds.button(l="Export Final Result", w=250)
 
 cmds.separator(style='none', height=5, p="mainLayout")
@@ -99,11 +104,11 @@ cmds.rowColumnLayout("importFinalFileList", p="importFinalFile", nc=2, cw=[(1,10
 cmds.text(l="Ctrl List:")
 cmds.button(l="Import file")
 cmds.separator(style='none')
-ctrlListFile = cmds.textField("ctrlListFiletxtField")
+ctrlListFile = cmds.textField("ctrlListFileTxtField")
 cmds.text(l="Final Result File:")
 cmds.button(l="Import file")
 cmds.separator(style='none')
-finalResultFile = cmds.textField("finalResultFiletxtField")
+finalResultFile = cmds.textField("finalResultFileTxtField")
 cmds.button(l="Import Final Result", w=250)
 
 cmds.separator(style='none', height=5, p="mainLayout")
