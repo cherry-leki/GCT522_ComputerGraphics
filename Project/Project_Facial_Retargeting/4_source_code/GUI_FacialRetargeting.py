@@ -28,7 +28,7 @@ def exportTrgROE(*args):
 ''' GUI Part '''
 ''' Window Setting '''
 windowName = "Facial Retargeting To Frame"
-window = cmds.window(title=windowName)
+window = cmds.window(title=windowName, sizeable=False)
 
 ''' Main Layout '''
 cmds.columnLayout("mainLayout", w=300)
@@ -80,9 +80,9 @@ cmds.button(l="Import File", c=exportTrgROE)
 cmds.separator(style='none')
 trgROECtrlList = cmds.textField("trgROECtrlListTxtField", tx="kokoCtrlList.dat")
 cmds.text(l="FileName:")
-trgROEFileName = cmds.textField("trgROEFramesTxtField", tx="kokoROE.dat")
+trgROEFileName = cmds.textField("trgROEFileNameTxtField", tx="kokoROE.dat")
 cmds.text(l="# of Sets:")
-trgROEFileName = cmds.intField("trgROESetsIntField", v=36)
+trgROENumOfSets = cmds.intField("trgROENumOfSetsIntField", v=36)
 cmds.button(l="Export Target ROE", w=250)
 
 cmds.separator(style='none', height=5, p="mainLayout")
