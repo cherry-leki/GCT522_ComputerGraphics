@@ -1,6 +1,8 @@
 from functools import partial as ft
 import maya.cmds as cmds
 import maya.mel as mel
+import os
+from os.path import basename
 
 ''' Window Setting '''
 windowName = "Facial Retargeting To Frame"
