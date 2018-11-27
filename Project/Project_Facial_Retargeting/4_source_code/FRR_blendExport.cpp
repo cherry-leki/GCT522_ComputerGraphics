@@ -48,18 +48,8 @@ MStatus FRRBLENDEXPORTCmd::doIt(const MArgList &args)
 	//	 (weight1) (weight2) (weight3) ... (weightN)																					//
 	//	 ...																															//
 	//																																	//	 
-	//	Given example, "humanSourceAnimation.mb" should generate 360x35 matrix, "humanBROE.mb" should generate 36x35 matrix				//
+	//	Given example, "humanSourceAnimation.mb" should generate 360x35 matrix, "humanROE.mb" should generate 36x35 matrix				//
 	//----------------------------------------------------------------------------------------------------------------------------------//
-
-
-
-
-
-
-
-
-
-
 
 	
 
