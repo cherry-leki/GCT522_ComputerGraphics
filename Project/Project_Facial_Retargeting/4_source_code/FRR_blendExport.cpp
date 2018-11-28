@@ -51,6 +51,7 @@ MStatus FRRBLENDEXPORTCmd::doIt(const MArgList &args)
 	//	Given example, "humanSourceAnimation.mb" should generate 360x35 matrix, "humanROE.mb" should generate 36x35 matrix				//
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
+	MGlobal::selectByName(blendNodeName, MGlobal::kReplaceList);
 	
 
 	//close the export file
