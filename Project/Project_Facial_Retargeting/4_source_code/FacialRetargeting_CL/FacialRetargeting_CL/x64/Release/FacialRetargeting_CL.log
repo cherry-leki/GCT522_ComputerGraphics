@@ -1,33 +1,8 @@
 ﻿  FRR_blendExport.cpp
-  FRR_ctrlListExport.cpp
-  FRR_CVExport.cpp
-  FRR_CVImport.cpp
-  FRR_Training.cpp
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(57): warning C4267: '=': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(58): warning C4267: '=': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(64): warning C4267: '=': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(106): warning C4267: '=': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(150): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(153): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(155): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(158): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(196): warning C4267: '초기화 중': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_training.cpp(200): warning C4267: '초기화 중': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  pluginMain.cpp
-  rbfKernel.cpp
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\rbfkernel.cpp(64): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\rbfkernel.cpp(66): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\rbfkernel.cpp(100): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\rbfkernel.cpp(157): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\rbfkernel.cpp(188): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\inversematrix.h(19): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\rbfkernel.cpp(87): note: 컴파일 중인 함수 템플릿 인스턴스화 'bool InvertMatrix<double>(const boost::numeric::ublas::matrix<double,boost::numeric::ublas::row_major,boost::numeric::ublas::unbounded_array<T,std::allocator<T>>> &,boost::numeric::ublas::matrix<T,boost::numeric::ublas::row_major,boost::numeric::ublas::unbounded_array<T,std::allocator<T>>> &)'에 대한 참조를 확인하십시오.
-          with
-          [
-              T=double
-          ]
      C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\Project\Project_Facial_Retargeting\4_source_code\FacialRetargeting_CL\x64\Release\FacialRetargeting_CL.lib 라이브러리 및 C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\Project\Project_Facial_Retargeting\4_source_code\FacialRetargeting_CL\x64\Release\FacialRetargeting_CL.exp 개체를 생성하고 있습니다.
   코드를 생성하고 있습니다.
-  All 724 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 724 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   FacialRetargeting_CL.vcxproj -> C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\Project\Project_Facial_Retargeting\4_source_code\FacialRetargeting_CL\x64\Release\FacialRetargeting_CL.mll
