@@ -38,13 +38,12 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 	//	Make controller list from the file(kokoCtrlList.dat) by using MStringArray.														//
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
-
-
-
-
-
-
-
+	MStringArray ctrlListArr;
+	while (!fin.eof()) {
+		char temp[100];
+		fin >> temp;
+		ctrlListArr.append(temp);
+	}
 
 	//close controller list file
 	fin.close(); 
@@ -75,18 +74,6 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 	ofstream fout;
 	fout.open(CVExportFileName.asChar());
 	
-
-
-	
-
-
-
-
-
-
-
-
-
 
 
 	//close the export file
