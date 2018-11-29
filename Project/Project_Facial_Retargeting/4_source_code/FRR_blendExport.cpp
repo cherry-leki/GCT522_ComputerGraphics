@@ -57,15 +57,18 @@ MStatus FRRBLENDEXPORTCmd::doIt(const MArgList &args)
 
 	MObject blendNode;
 	selected.getDependNode(0, blendNode);
-	MFnBlendShapeDeformer bnDeformer(blendNode);
-	
-	for (int i = 0; i < frameNum; i++) {
-		float blendshapeWeightArr[35] = { 0.0, };
-		for (int j = 0; j < sizeof(blendshapeWeightArr) / sizeof(*blendshapeWeightArr); j++) {
-			blendshapeWeightArr[j] = bnDeformer.weight(j);
-			cout << blendshapeWeightArr[j] <<" ";
+		
+	for (int i = 1; i <= frameNum; i++) {
+		MTime frameTime((float)i);
+		MGlobal::viewFrame(frameTime);
+		
+		MFnBlendShapeDeformer bnDeformer(blendNode);
+		int bnNumWeights = bnDeformer.numWeights();
+
+		for (int j = 0; j < bnNumWeights; j++) {
+			fout << bnDeformer.weight(j) <<" ";
 		}
-		cout << endl;
+		fout << endl;
 	}
 
 	//close the export file
