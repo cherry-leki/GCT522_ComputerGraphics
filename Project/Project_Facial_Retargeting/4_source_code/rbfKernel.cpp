@@ -11,10 +11,14 @@ int	rbf::buildDistMatrix(matrix<double> &distMat, const vector<vector<double>> &
 	//	Compute distance from one point(source expression vector) to other points of sample data by using dist() funciton, and save it to distMat
 	//----------------------------------------------------------------------------------------------------------------------------------------------//
 
-
-
-
-
+	_numInput = input.size();
+	for (int i = 0; i < _numInput; i++) {
+		vector<double> s = input[i];
+		for (int j = 0; j < _numInput; j++) {
+			vector<double> t = input[j];
+			distMat(i, j) = dist(s, t);
+		}
+	}
 
 	// Calculate minimum distance for hardy-multiquadric function
 	double dmin;
