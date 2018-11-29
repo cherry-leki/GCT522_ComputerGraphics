@@ -2,6 +2,7 @@
 
 #include "FRR_CVExport.h"
 #include <maya/MPlug.h>
+#include <maya/MTime.h>
 
 const char *ctrlFileNameFlag = "-cln", *ctrlFileNameLongFlag = "-ctrlListFileName";
 const char *CVExportFileNameFlag = "-cfn", *CVExportFileNameLongFlag = "-cvFileName";
@@ -73,8 +74,35 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 	//open the export file
 	ofstream fout;
 	fout.open(CVExportFileName.asChar());
-	
+			
+	// Iterate the controllers at each frame
+	for (int i = 1; i <= frameNum; i++) {
+		MTime frameTime((float)i);
+		MGlobal::viewFrame(frameTime);
 
+		for (int j = 0; j < ctrlListArr.length(); j++) {
+			MGlobal::selectByName(ctrlListArr[j], MGlobal::kReplaceList);
+			MSelectionList selected;
+			MGlobal::getSelectionListByName(ctrlListArr[j], selected);
+
+			MObject ctrlNode;
+			selected.getDependNode(0, ctrlNode);
+			
+			MFnTransform ctrlTransform(ctrlNode);
+
+			MPlug trXPlug = ctrlTransform.findPlug("translateX");
+			MPlug trYPlug = ctrlTransform.findPlug("translateY");
+			MPlug trZPlug = ctrlTransform.findPlug("translateZ");
+			MPlug rtXPlug = ctrlTransform.findPlug("rotateX");
+			MPlug rtYPlug = ctrlTransform.findPlug("rotateY");
+			MPlug rtZPlug = ctrlTransform.findPlug("rotateZ");
+
+			fout << trXPlug.asDouble() << " " << trYPlug.asDouble() << " " << trZPlug.asDouble() << " "
+				<< rtXPlug.asDouble() << " " << rtYPlug.asDouble() << " " << rtZPlug.asDouble() << " ";
+		}
+		fout << endl;
+	}
+	
 
 	//close the export file
 	fout.close();
