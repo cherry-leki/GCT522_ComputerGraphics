@@ -51,13 +51,15 @@ MStatus FRRBLENDEXPORTCmd::doIt(const MArgList &args)
 	//	Given example, "humanSourceAnimation.mb" should generate 360x35 matrix, "humanROE.mb" should generate 36x35 matrix				//
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
+	// Select blendshape node by name
 	MGlobal::selectByName(blendNodeName, MGlobal::kReplaceList);
 	MSelectionList selected;
 	MGlobal::getSelectionListByName(blendNodeName, selected);
 
 	MObject blendNode;
 	selected.getDependNode(0, blendNode);
-		
+	
+	// Get blendshape weights at each frames
 	for (int i = 1; i <= frameNum; i++) {
 		MTime frameTime((float)i);
 		MGlobal::viewFrame(frameTime);
@@ -65,6 +67,7 @@ MStatus FRRBLENDEXPORTCmd::doIt(const MArgList &args)
 		MFnBlendShapeDeformer bnDeformer(blendNode);
 		int bnNumWeights = bnDeformer.numWeights();
 
+		// Write down on the file
 		for (int j = 0; j < bnNumWeights; j++) {
 			fout << bnDeformer.weight(j) <<" ";
 		}
