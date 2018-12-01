@@ -2,8 +2,8 @@
 c:\users\cl\desktop\dooo\maya\hw\cg_noh\project\project_facial_retargeting\4_source_code\frr_cvexport.cpp(83): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
      C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\Project\Project_Facial_Retargeting\4_source_code\FacialRetargeting_CL\x64\Release\FacialRetargeting_CL.lib 라이브러리 및 C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\Project\Project_Facial_Retargeting\4_source_code\FacialRetargeting_CL\x64\Release\FacialRetargeting_CL.exp 개체를 생성하고 있습니다.
   코드를 생성하고 있습니다.
-  0 of 726 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  15 of 726 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    25 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   FacialRetargeting_CL.vcxproj -> C:\Users\CL\Desktop\Dooo\Maya\HW\CG_Noh\Project\Project_Facial_Retargeting\4_source_code\FacialRetargeting_CL\x64\Release\FacialRetargeting_CL.mll

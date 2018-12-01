@@ -97,8 +97,12 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 			MPlug rtYPlug = ctrlTransform.findPlug("rotateY");
 			MPlug rtZPlug = ctrlTransform.findPlug("rotateZ");
 
-			fout << trXPlug.asDouble() << " " << trYPlug.asDouble() << " " << trZPlug.asDouble() << " "
-				<< rtXPlug.asDouble() << " " << rtYPlug.asDouble() << " " << rtZPlug.asDouble() << " ";
+			if (trXPlug.isConnected())	fout << trXPlug.asDouble() << " ";
+			if (trYPlug.isConnected())	fout << trYPlug.asDouble() << " ";
+			if (trZPlug.isConnected())	fout << trZPlug.asDouble() << " ";
+			if (rtXPlug.isConnected())	fout << rtXPlug.asDouble() << " ";
+			if (rtYPlug.isConnected())	fout << rtYPlug.asDouble() << " ";
+			if (rtZPlug.isConnected())	fout << rtZPlug.asDouble() << " ";
 		}
 		fout << endl;
 	}
