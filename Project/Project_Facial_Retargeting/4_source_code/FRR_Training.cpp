@@ -113,18 +113,6 @@ MStatus FRRTRAININGCmd::doIt ( const MArgList &args )
 
 	
 
-
-
-
-	
-
-
-
-
-
-
-
-
 	//export the final result matrix to file
 	exportData(result, finalFile);
 	
