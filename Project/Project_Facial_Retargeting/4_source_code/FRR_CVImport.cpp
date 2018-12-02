@@ -73,19 +73,6 @@ MStatus FRRCVIMPORTCmd::doIt(const MArgList &args)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//close the final result file
 	fin.close();
 
