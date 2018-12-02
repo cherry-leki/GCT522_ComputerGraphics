@@ -13,10 +13,10 @@ int	rbf::buildDistMatrix(matrix<double> &distMat, const vector<vector<double>> &
 
 	_numInput = input.size();
 	for (int i = 0; i < _numInput; i++) {
-		vector<double> s = input[i];
+		vector<double> srcPoint = input[i];
 		for (int j = 0; j < _numInput; j++) {
-			vector<double> t = input[j];
-			distMat(i, j) = dist(s, t);
+			vector<double> trgPoint = input[j];
+			distMat(i, j) = dist(srcPoint, trgPoint);
 		}
 	}
 
@@ -113,16 +113,7 @@ int rbf::Train(const vector<vector<double>> &input, const vector<vector<double>>
 	//		for this, you should change data type of output data form vector<vector<double>> to matrix<double>.
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
-
-
-
-
-
-
-
-
-
-
+	buildBasisMat(_input);
 
 
 	return 0;
