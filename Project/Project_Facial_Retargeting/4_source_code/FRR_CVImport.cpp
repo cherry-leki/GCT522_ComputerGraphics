@@ -38,13 +38,15 @@ MStatus FRRCVIMPORTCmd::doIt(const MArgList &args)
 	//	Make controller list from the file(kokoCtrlList.dat) by using MStringArray(SAME code as FRR_CVExport.cpp).						//	
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
+	MStringArray ctrlListArr;
+	while (!fin.eof()) {
+		char temp[100];
+		fin >> temp;
+		ctrlListArr.append(temp);
+	}
 
-
-
-
-
-
-
+	//close controller list file
+	fin.close();
 
 	//close controller list file
 	fin.close(); 
