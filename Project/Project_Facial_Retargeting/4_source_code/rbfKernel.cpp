@@ -115,6 +115,15 @@ int rbf::Train(const vector<vector<double>> &input, const vector<vector<double>>
 
 	buildBasisMat(_input);
 
+	matrix<double> outMat(output.size(), _dimOutput);
+
+	for (int i = 0; i < output.size(); i++) {
+		for (int j = 0; j < _dimOutput; j++) {
+			outMat(i, j) = output[i][j];
+		}
+	}
+
+	_weightMat = prod(_inverseBasisMat, outMat);
 
 	return 0;
 }

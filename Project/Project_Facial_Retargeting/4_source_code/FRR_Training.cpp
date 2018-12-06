@@ -111,7 +111,25 @@ MStatus FRRTRAININGCmd::doIt ( const MArgList &args )
 	//	Run RBF interpolation by using .interpolate(sourceInput, interpolateResult) function of rbf class
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
-	
+	vector<vector<double>> srcInput(numSamplePair);
+
+	for (unsigned int i = 0; i < numSamplePair; i++)
+	{
+		vector<double> tempVec;
+		tempVec.resize(humanFaceDim);
+		for (unsigned int j = 0; j < humanFaceDim; j++)
+		{
+			tempVec(j) = WVec[i][j];
+		}
+
+		srcInput(i) = tempVec;
+		tempVec.clear();
+	}
+
+	//free
+	WVec.clear();
+
+	rbfn.Interpolate(srcInput, result);
 
 	//export the final result matrix to file
 	exportData(result, finalFile);

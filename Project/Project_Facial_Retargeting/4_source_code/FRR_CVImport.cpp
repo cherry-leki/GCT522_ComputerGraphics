@@ -46,9 +46,6 @@ MStatus FRRCVIMPORTCmd::doIt(const MArgList &args)
 	}
 
 	//close controller list file
-	fin.close();
-
-	//close controller list file
 	fin.close(); 
 
 
@@ -71,7 +68,18 @@ MStatus FRRCVIMPORTCmd::doIt(const MArgList &args)
 	//open the final result file
 	fin.open(CVImportFileName.asChar());
 
+	// Read each line of file and split the values
+	MStringArray finalResultArr;
+	while (!fin.eof()) {
+		char temp[10];
+		fin >> temp;
+	}
 
+	// Iterate the controllers at each frame
+	for (int i = 1; i <= ctrlListArr.length(); i++) {
+
+	}
+	//
 
 	//close the final result file
 	fin.close();
