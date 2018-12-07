@@ -2,7 +2,6 @@
 
 #include "FRR_CVExport.h"
 #include <maya/MPlug.h>
-#include <maya/MTime.h>
 
 const char *ctrlFileNameFlag = "-cln", *ctrlFileNameLongFlag = "-ctrlListFileName";
 const char *CVExportFileNameFlag = "-cfn", *CVExportFileNameLongFlag = "-cvFileName";
@@ -77,8 +76,7 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 			
 	// Iterate the controllers at each frame
 	for (int i = 1; i <= frameNum; i++) {
-		MTime frameTime((float)i);
-		MGlobal::viewFrame(frameTime);
+		MGlobal::viewFrame(i);
 
 		for (int j = 0; j < ctrlListArr.length(); j++) {
 			MGlobal::selectByName(ctrlListArr[j], MGlobal::kReplaceList);

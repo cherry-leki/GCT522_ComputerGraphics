@@ -4,6 +4,7 @@
 #include <maya/MPlug.h>
 #include <maya/MFnAnimCurve.h>
 #include <maya/MTime.h>
+#include <sstream>
 
 const char *importCharCtrlListFlag = "-cln", *importCharCtrlListLongFlag = "-ctrlListFileName";
 const char *importFileNameFlag = "-ffn", *importFileNameLongFlag = "-finalFileName";
@@ -68,19 +69,76 @@ MStatus FRRCVIMPORTCmd::doIt(const MArgList &args)
 	//open the final result file
 	fin.open(CVImportFileName.asChar());
 
-	// Read each line of file and split the values
+	
 	MStringArray finalResultArr;
-	while (!fin.eof()) {
-		char temp[10];
-		fin >> temp;
+	std::string temp;
+	int frameCount = 1;
+
+	// Read each line of file and split the values
+	while (std::getline(fin, temp)) {
+		MGlobal::viewFrame(frameCount);
+		int tempNum = 0;
+
+		// Split the values
+		std::istringstream iss(temp);
+		while (iss) {
+			std::string tmp;
+			iss >> tmp;
+			finalResultArr.append(tmp.c_str());
+		}
+
+		// Iterate the controllers at each frame
+		for (int j = 0; j < ctrlListArr.length(); j++) {
+			MGlobal::selectByName(ctrlListArr[j], MGlobal::kReplaceList);
+			MSelectionList selected;
+			MGlobal::getSelectionListByName(ctrlListArr[j], selected);
+
+			MObject ctrlNode;
+			selected.getDependNode(0, ctrlNode);
+
+			MFnTransform ctrlTransform(ctrlNode);
+
+			// Get plugs to access the keyable attribute values of controllers
+			MPlug trXPlug = ctrlTransform.findPlug("translateX");
+			MPlug trYPlug = ctrlTransform.findPlug("translateY");
+			MPlug trZPlug = ctrlTransform.findPlug("translateZ");
+			MPlug rtXPlug = ctrlTransform.findPlug("rotateX");
+			MPlug rtYPlug = ctrlTransform.findPlug("rotateY");
+			MPlug rtZPlug = ctrlTransform.findPlug("rotateZ");
+
+
+			// Set the keyable attribute values of controllers
+			MTime frameTime((float)frameCount);
+
+			if (trXPlug.isConnected()) {
+				trXPlug.setDouble(finalResultArr[tempNum++].asDouble());
+				MGlobal::executeCommand(MString("setKeyframe " + ctrlListArr[j] +".translateX"));
+			}
+			if (trYPlug.isConnected()) {
+				trYPlug.setDouble(finalResultArr[tempNum++].asDouble());
+				MGlobal::executeCommand(MString("setKeyframe " + ctrlListArr[j] + ".translateY"));
+			}
+			if (trZPlug.isConnected()) {
+				trZPlug.setDouble(finalResultArr[tempNum++].asDouble());
+				MGlobal::executeCommand(MString("setKeyframe " + ctrlListArr[j] + ".translateZ"));
+			}
+			if (rtXPlug.isConnected()) {
+				rtXPlug.setDouble(finalResultArr[tempNum++].asDouble());
+				MGlobal::executeCommand(MString("setKeyframe " + ctrlListArr[j] + ".rotateX"));
+			}
+			if (rtYPlug.isConnected()) {
+				rtYPlug.setDouble(finalResultArr[tempNum++].asDouble());
+				MGlobal::executeCommand(MString("setKeyframe " + ctrlListArr[j] + ".rotateY"));
+;			}
+			if (rtZPlug.isConnected()) {
+				rtZPlug.setDouble(finalResultArr[tempNum++].asDouble());
+				MGlobal::executeCommand(MString("setKeyframe " + ctrlListArr[j] + ".rotateZ"));
+			}
+		}
+		finalResultArr.clear();
+		frameCount++;
 	}
-
-	// Iterate the controllers at each frame
-	for (int i = 1; i <= ctrlListArr.length(); i++) {
-
-	}
-	//
-
+	
 	//close the final result file
 	fin.close();
 
