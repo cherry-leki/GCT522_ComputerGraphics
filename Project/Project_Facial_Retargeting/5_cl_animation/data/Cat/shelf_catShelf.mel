@@ -1,0 +1,792 @@
+global proc shelf_catShelf () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User-defined Python command" 
+        -enableBackground 0
+        -align "center" 
+        -label "RF Foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Right" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/all_right_leg.JPG" 
+        -image1 "icons/all_right_leg.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nnsBU = ns = ''\nobjects = [\"*r_f_femur_to_r_f_ankle_switch_CTRL\", \"*r_heel_loc1_CTRL\", \"*r_f_leg_ikfkToeCtrl1_CTRL\", \"*r_f_leg_ikfkBallCtrl1_grp_CTRL\", \"*r_f_leg_ikfkFootCtrl1\", \"*r_f_leg_ikfkToeCtrl1\", \"*r_f_leg_ikfktoeLiftCtrl1\", \"*r_f_leg_ikfkBallCtrl1\", \"*r_f_femur_to_r_f_ankle_pole_CTRL\"]\nselection = mc.ls(objects,r=1)\nif mc.getModifiers() == 4:\n    mc.select(selection,tgl=1)\nelif mc.getModifiers() == 8:\n    for obj in selection:\n    \tzeroMe = mc.listAnimatable(obj)\n    \tfor zm in zeroMe:\n\t\t\tsplited = zm.split(\".\")\n\t\t\tdefaultValue =  mc.attributeQuery(splited[1],node=splited[0],ld=True)\n\t\t\tif (mc.getAttr(zm , se=True)):\n\t\t\t\tmc.setAttr( zm, defaultValue[0] )\nelse:\n    mc.select(selection)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User-defined Python command" 
+        -enableBackground 0
+        -align "center" 
+        -label "LF Foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Left" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/all_left_leg.JPG" 
+        -image1 "icons/all_left_leg.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nnsBU = ns = ''\nobjects = [\"*l_f_femur_to_l_f_ankle_switch_CTRL\", \"*l_heel_loc1_CTRL\", \"*l_f_leg_ikfkToeCtrl1_CTRL\", \"*l_f_leg_ikfkBallCtrl1_grp_CTRL\", \"*l_f_leg_ikfkFootCtrl1\", \"*l_f_leg_ikfktoeLiftCtrl1\", \"*l_f_leg_ikfkBallCtrl1\", \"*l_f_femur_to_l_f_ankle_pole_CTRL\"]\nselection = mc.ls(objects,r=1)\nif mc.getModifiers() == 4:\n    mc.select(selection,tgl=1)\nelif mc.getModifiers() == 8:\n    for obj in selection:\n    \tzeroMe = mc.listAnimatable(obj)\n    \tfor zm in zeroMe:\n\t\t\tsplited = zm.split(\".\")\n\t\t\tdefaultValue =  mc.attributeQuery(splited[1],node=splited[0],ld=True)\n\t\t\tif (mc.getAttr(zm , se=True)):\n\t\t\t\tmc.setAttr( zm, defaultValue[0] )\nelse:\n    mc.select(selection)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User-defined Python command" 
+        -enableBackground 0
+        -align "center" 
+        -label "RR Foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "RIGHT" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/all_right_rear_leg.JPG" 
+        -image1 "icons/all_right_rear_leg.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nnsBU = ns = ''\nobjects = [\"*r_r_femur_to_r_r_ankle_switch_CTRL\", \"*r_heel_loc2_CTRL\", \"*r_r_leg_ikfkToeCtrl1_CTRL\", \"*r_r_leg_ikfkBallCtrl1_grp_CTRL\", \"*r_r_leg_ikfkFootCtrl1\", \"*r_r_leg_ikfkToeCtrl1\", \"*r_r_leg_ikfktoeLiftCtrl1\", \"*r_r_leg_ikfkBallCtrl1\", \"*r_r_femur_to_r_r_ankle_pole_CTRL\"]\nselection = mc.ls(objects,r=1)\nif mc.getModifiers() == 4:\n    mc.select(selection,tgl=1)\nelif mc.getModifiers() == 8:\n    for obj in selection:\n    \tzeroMe = mc.listAnimatable(obj)\n    \tfor zm in zeroMe:\n\t\t\tsplited = zm.split(\".\")\n\t\t\tdefaultValue =  mc.attributeQuery(splited[1],node=splited[0],ld=True)\n\t\t\tif (mc.getAttr(zm , se=True)):\n\t\t\t\tmc.setAttr( zm, defaultValue[0] )\nelse:\n    mc.select(selection)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User-defined Python command" 
+        -enableBackground 0
+        -align "center" 
+        -label "LR Foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "LEFT" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/all_left_rear_leg.JPG" 
+        -image1 "icons/all_left_rear_leg.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nnsBU = ns = ''\nobjects = [\"*l_r_femur_to_l_r_ankle_switch_CTRL\", \"*l_heel_loc2_CTRL\", \"*l_r_leg_ikfkToeCtrl1_CTRL\", \"*l_r_leg_ikfkBallCtrl1_grp_CTRL\", \"*l_r_leg_ikfkFootCtrl1\", \"*l_r_leg_ikfkToeCtrl1\", \"*l_r_leg_ikfktoeLiftCtrl1\", \"*l_r_leg_ikfkBallCtrl1\", \"*l_r_femur_to_l_r_ankle_pole_CTRL\"]\nselection = mc.ls(objects,r=1)\nif mc.getModifiers() == 4:\n    mc.select(selection,tgl=1)\nelif mc.getModifiers() == 8:\n    for obj in selection:\n    \tzeroMe = mc.listAnimatable(obj)\n    \tfor zm in zeroMe:\n\t\t\tsplited = zm.split(\".\")\n\t\t\tdefaultValue =  mc.attributeQuery(splited[1],node=splited[0],ld=True)\n\t\t\tif (mc.getAttr(zm , se=True)):\n\t\t\t\tmc.setAttr( zm, defaultValue[0] )\nelse:\n    mc.select(selection)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User-defined Python command" 
+        -enableBackground 0
+        -align "center" 
+        -label "all" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/select_all.JPG" 
+        -image1 "icons/select_all.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nnsBU = ns = ''\nobjects = [\"*eyesTransformParent_CTRL\", \"*l_eye_CTRL\", \"*r_eye_CTRL\", \"*l_cheek_CTRL\", \"*r_cheek_CTRL\", \"*l_ear_CTRL\", \"*l_ear1_CTRL\", \"*l_ear2_CTRL\", \"*r_ear_CTRL\", \"*r_ear1_CTRL\", \"*r_ear2_CTRL\", \"*l_lowerEyeLid_CTRL\", \"*l_upperEyeLid_CTRL\", \"*r_upperEyeLid_CTRL\", \"*r_lowerEyeLid_CTRL\", \"*l_eyeBrow_CTRL\", \"*l_brow_A_CTRL\", \"*l_brow_B_CTRL\", \"*l_brow_C_CTRL\", \"*r_eyeBrow_CTRL\", \"*r_brow_C_CTRL\", \"*r_brow_B_CTRL\", \"*r_brow_A_CTRL\", \"*l_cheekUpper_CTRL\", \"*l_cheekInner_CTRL\", \"*l_cheekOuter_CTRL\", \"*r_cheekUpper_CTRL\", \"*r_cheekInner_CTRL\", \"*r_cheekOuter_CTRL\", \"*midBrows_CTRL\", \"*jaw_CTRL\", \"*chin_CTRL\", \"*tongue_1_CTRL\", \"*tongue_2_CTRL\", \"*tongue_3_CTRL\", \"*underChin_CTRL\", \"*mouthMain_CTRL\", \"*r_lowerLip_CTRL\", \"*l_lowerLip_CTRL\", \"*lowerLip_CTRL\", \"*r_lipCorner_CTRL\", \"*r_lipCorner_t_CTRL\", \"*r_lipCorner_b_CTRL\", \"*l_lipCorner_CTRL\", \"*l_lipCorner_t_CTRL\", \"*l_lipCorner_b_CTRL\", \"*upperLip_CTRL\", \"*l_upperLip_CTRL\", \"*r_upperLip_CTRL\", \"*l_upperLip1_CTRL\", \"*l_lowerLip1_CTRL\", \"*r_upperLip1_CTRL\", \"*r_lowerLip1_CTRL\", \"*r_nasalLabialFold_CTRL\", \"*l_nasalLabialFold_CTRL\", \"*l_temple_CTRL\", \"*r_temple_CTRL\", \"*noseMain_CTRL\", \"*l_nostril_CTRL\", \"*r_nostril_CTRL\", \"*skull_CTRL\", \"*adamsApple_CTRL\", \"*l_lipCorner_sdk_CTRL\", \"*r_lipCorner_sdk_CTRL\", \"*l_lowerLip_sdk_CTRL\", \"*l_upperLip_sdk_CTRL\", \"*lowerLip_sdk_CTRL\", \"*r_lowerLip_sdk_CTRL\", \"*r_upperLip_sdk_CTRL\", \"*upperLip_sdk_CTRL\", \"*l_lowerLip1_CTRL_sdk_CTRL\", \"*r_lowerLip1_CTRL_sdk_CTRL\", \"*catTransform\", \"*mainRoot_CTRL\", \"*hips_CTRL\", \"*l_f_femur_to_l_f_ankle_switch_CTRL\", \"*r_f_femur_to_r_f_ankle_switch_CTRL\", \"*l_r_femur_to_l_r_ankle_switch_CTRL\", \"*r_r_femur_to_r_r_ankle_switch_CTRL\", \"*spine_4_DUP_CTRL\", \"*splineSpine_1_1_CTRL\", \"*splineSpine_2_1_CTRL\", \"*splineSpine_3_1_CTRL\", \"*skullBase_1_DUP_CTRL\", \"*splineSpine_3_2_CTRL\", \"*splineSpine_4_1_CTRL\", \"*l_heel_loc2_CTRL\", \"*l_r_leg_ikfkToeCtrl1_CTRL\", \"*l_r_leg_ikfkBallCtrl1_grp_CTRL\", \"*l_r_leg_ikfkFootCtrl1\", \"*l_r_leg_ikfkToeCtrl1\", \"*l_r_leg_ikfkBallCtrl1\", \"*r_heel_loc2_CTRL\", \"*r_r_leg_ikfkToeCtrl1_CTRL\", \"*r_r_leg_ikfkBallCtrl1_grp_CTRL\", \"*r_r_leg_ikfkFootCtrl1\", \"*r_r_leg_ikfkToeCtrl1\", \"*r_r_leg_ikfkBallCtrl1\", \"*l_heel_loc1_CTRL\", \"*l_f_leg_ikfkToeCtrl1_CTRL\", \"*l_f_leg_ikfkBallCtrl1_grp_CTRL\", \"*l_f_leg_ikfkFootCtrl1\", \"*l_f_leg_ikfkToeCtrl1\", \"*l_f_leg_ikfktoeLiftCtrl1\", \"*l_f_leg_ikfkBallCtrl1\", \"*r_heel_loc1_CTRL\", \"*r_f_leg_ikfkToeCtrl1_CTRL\", \"*r_f_leg_ikfkBallCtrl1_grp_CTRL\", \"*r_f_leg_ikfkFootCtrl1\", \"*r_f_leg_ikfkToeCtrl1\", \"*r_f_leg_ikfkBallCtrl1\", \"*head_1_CTRL\", \"*jaw_CTRL\", \"*l_collarBone_CTRL\", \"*r_collarBone_CTRL\", \"*tail_1_clHandle_for_cv0_CTRL\", \"*tail_1_IK_curve1_cv_0__CTRL\", \"*tail_1_pvHandle_for_cv0_CTRL\", \"*tail_1_clHandle_for_cv1_CTRL\", \"*tail_1_IK_curve1_cv_1__CTRL\", \"*tail_1_pvHandle_for_cv1_CTRL\", \"*tail_1_clHandle_for_cv2_CTRL\", \"*tail_1_IK_curve1_cv_2__CTRL\", \"*tail_1_pvHandle_for_cv2_CTRL\", \"*tail_1_clHandle_for_cv3_CTRL\", \"*tail_1_IK_curve1_cv_3__CTRL\", \"*tail_1_pvHandle_for_cv3_CTRL\", \"*tail_1_clHandle_for_cv4_CTRL\", \"*tail_1_IK_curve1_cv_4__CTRL\", \"*tail_1_pvHandle_for_cv4_CTRL\", \"*tail_1_clHandle_for_cv5_CTRL\", \"*tail_1_IK_curve1_cv_5__CTRL\", \"*tail_1_pvHandle_for_cv5_CTRL\", \"*l_f_femur_to_l_f_ankle_pole_CTRL\", \"*r_f_femur_to_r_f_ankle_pole_CTRL\", \"*l_r_femur_to_l_r_ankle_pole_CTRL\", \"*r_r_femur_to_r_r_ankle_pole_CTRL\"]\nselection = mc.ls(objects,r=1)\nif mc.getModifiers() == 4:\n    mc.select(selection,tgl=1)\nelif mc.getModifiers() == 8:\n    for obj in selection:\n    \tzeroMe = mc.listAnimatable(obj)\n    \tfor zm in zeroMe:\n\t\t\tsplited = zm.split(\".\")\n\t\t\tdefaultValue =  mc.attributeQuery(splited[1],node=splited[0],ld=True)\n\t\t\tif (mc.getAttr(zm , se=True)):\n\t\t\t\tmc.setAttr( zm, defaultValue[0] )\nelse:\n    mc.select(selection)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User-defined Python command" 
+        -enableBackground 0
+        -align "center" 
+        -label "selected" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/zero_selection.JPG" 
+        -image1 "icons/zero_selection.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "objects = mc.ls(sl=1)\nfor obj in objects:\n    zeroMe = mc.listAnimatable(obj)\n    for zm in zeroMe:\n    \tsplited = zm.split(\".\")\n    \tdefaultValue =  mc.attributeQuery(splited[1],node=splited[0],ld=True)\n    \tif (mc.getAttr(zm , se=True)):\n    \t\tmc.setAttr( zm, defaultValue[0] )" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_heel_loc1_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "right_front_attributes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/toe_attributes_right.JPG" 
+        -image1 "icons/toe_attributes_right.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_heel_loc1_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 42
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_f_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Right_front_toes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/right_toes.JPG" 
+        -image1 "icons/right_toes.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_f_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_f_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "right_front_foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/right_front_paw.JPG" 
+        -image1 "icons/right_front_paw.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_f_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_f_leg_ikfkBallCtrl1 ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "right_wrist" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "wrist" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/rt_front_foot.JPG" 
+        -image1 "icons/rt_front_foot.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_f_leg_ikfkBallCtrl1 ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_f_femur_to_r_f_ankle_pole_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Right_elbow" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/right_elbow.JPG" 
+        -image1 "icons/right_elbow.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_f_femur_to_r_f_ankle_pole_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_f_femur_to_l_f_ankle_pole_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Left_elbow" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/left_elbow.JPG" 
+        -image1 "icons/left_elbow.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_f_femur_to_l_f_ankle_pole_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_f_leg_ikfkBallCtrl1 ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "left_wrist" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "wrist" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/lt_front_foot.JPG" 
+        -image1 "icons/lt_front_foot.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_f_leg_ikfkBallCtrl1 ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_f_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Left_front_foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/left_front_paw.JPG" 
+        -image1 "icons/left_front_paw.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_f_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 42
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_f_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Left_front_toes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/left_toes.JPG" 
+        -image1 "icons/left_toes.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_f_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_heel_loc1_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "left_front_attributes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/toe_attributes_left.JPG" 
+        -image1 "icons/toe_attributes_left.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_heel_loc1_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_heel_loc2_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "right_rear_attributes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/toe_attributes_right.JPG" 
+        -image1 "icons/toe_attributes_right.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_heel_loc2_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 42
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_r_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Right_rear_toes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/Back_right_toes.JPG" 
+        -image1 "icons/Back_right_toes.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_r_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_r_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Right_rear_foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/right_rear_paw.JPG" 
+        -image1 "icons/right_rear_paw.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_r_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_r_leg_ikfkBallCtrl1 ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "rt_ankle" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "ankle" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/right_rear_foot.JPG" 
+        -image1 "icons/right_rear_foot.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_r_leg_ikfkBallCtrl1 ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:r_r_femur_to_r_r_ankle_pole_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "Right_knee" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/Right_knee.JPG" 
+        -image1 "icons/Right_knee.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:r_r_femur_to_r_r_ankle_pole_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_r_femur_to_l_r_ankle_pole_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "Left_Knee" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/left_knee.JPG" 
+        -image1 "icons/left_knee.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_r_femur_to_l_r_ankle_pole_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_r_leg_ikfkBallCtrl1 ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "left_ankle" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "ankle" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/left_rear_foot.JPG" 
+        -image1 "icons/left_rear_foot.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_r_leg_ikfkBallCtrl1 ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_r_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Left_rear_foot" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/left_rear_paw.JPG" 
+        -image1 "icons/left_rear_paw.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_r_leg_ikfkBallCtrl1_grp_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 42
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_r_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "Left_rear_toes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/Back_left_toes.JPG" 
+        -image1 "icons/Back_left_toes.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_r_leg_ikfkToeCtrl1_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r pup:l_heel_loc2_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "left_rear_attributes" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/toe_attributes_left.JPG" 
+        -image1 "icons/toe_attributes_left.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r pup:l_heel_loc2_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r face:tongue_1_CTRL ;\nselect -tgl face:tongue_2_CTRL ;\nselect -tgl face:tongue_3_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "tongue" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/tail.JPG" 
+        -image1 "icons/tail.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r face:tongue_1_CTRL ;\nselect -tgl face:tongue_2_CTRL ;\nselect -tgl face:tongue_3_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r face:eyesTransformParent_CTRL ;\n" 
+        -enableBackground 0
+        -align "center" 
+        -label "eyes_lookat" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/eyes_only.JPG" 
+        -image1 "icons/eyes_only.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r face:eyesTransformParent_CTRL ;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User-defined Python command" 
+        -enableBackground 0
+        -align "center" 
+        -label "face" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.2 
+        -image "icons/select_all_face.JPG" 
+        -image1 "icons/select_all_face.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as mc\nnsBU = ns = ''\nobjects = [\"*eyesTransformParent_CTRL\", \"*l_eye_CTRL\", \"*r_eye_CTRL\", \"*l_cheek_CTRL\", \"*r_cheek_CTRL\", \"*l_ear_CTRL\", \"*l_ear1_CTRL\", \"*l_ear2_CTRL\", \"*r_ear_CTRL\", \"*r_ear1_CTRL\", \"*r_ear2_CTRL\", \"*l_lowerEyeLid_CTRL\", \"*l_upperEyeLid_CTRL\", \"*r_upperEyeLid_CTRL\", \"*r_lowerEyeLid_CTRL\", \"*l_eyeBrow_CTRL\", \"*l_brow_A_CTRL\", \"*l_brow_B_CTRL\", \"*l_brow_C_CTRL\", \"*r_eyeBrow_CTRL\", \"*r_brow_C_CTRL\", \"*r_brow_B_CTRL\", \"*r_brow_A_CTRL\", \"*l_cheekUpper_CTRL\", \"*l_cheekInner_CTRL\", \"*l_cheekOuter_CTRL\", \"*r_cheekUpper_CTRL\", \"*r_cheekInner_CTRL\", \"*r_cheekOuter_CTRL\", \"*midBrows_CTRL\", \"*jaw_CTRL\", \"*chin_CTRL\", \"*tongue_1_CTRL\", \"*tongue_2_CTRL\", \"*tongue_3_CTRL\", \"*underChin_CTRL\", \"*mouthMain_CTRL\", \"*r_lowerLip_CTRL\", \"*l_lowerLip_CTRL\", \"*lowerLip_CTRL\", \"*r_lipCorner_CTRL\", \"*r_lipCorner_t_CTRL\", \"*r_lipCorner_b_CTRL\", \"*l_lipCorner_CTRL\", \"*l_lipCorner_t_CTRL\", \"*l_lipCorner_b_CTRL\", \"*upperLip_CTRL\", \"*l_upperLip_CTRL\", \"*r_upperLip_CTRL\", \"*l_upperLip1_CTRL\", \"*l_lowerLip1_CTRL\", \"*r_upperLip1_CTRL\", \"*r_lowerLip1_CTRL\", \"*r_nasalLabialFold_CTRL\", \"*l_nasalLabialFold_CTRL\", \"*l_temple_CTRL\", \"*r_temple_CTRL\", \"*noseMain_CTRL\", \"*l_nostril_CTRL\", \"*r_nostril_CTRL\", \"*skull_CTRL\", \"*adamsApple_CTRL\", \"*l_lipCorner_sdk_CTRL\", \"*r_lipCorner_sdk_CTRL\", \"*l_lowerLip_sdk_CTRL\", \"*l_upperLip_sdk_CTRL\", \"*lowerLip_sdk_CTRL\", \"*r_lowerLip_sdk_CTRL\", \"*r_upperLip_sdk_CTRL\", \"*upperLip_sdk_CTRL\", \"*l_lowerLip1_CTRL_sdk_CTRL\", \"*r_lowerLip1_CTRL_sdk_CTRL\"]\nselection = mc.ls(objects,r=1)\nif mc.getModifiers() == 4:\n    mc.select(selection,tgl=1)\nelif mc.getModifiers() == 8:\n    for obj in selection:\n    \tzeroMe = mc.listAnimatable(obj)\n    \tfor zm in zeroMe:\n\t\t\tsplited = zm.split(\".\")\n\t\t\tdefaultValue =  mc.attributeQuery(splited[1],node=splited[0],ld=True)\n\t\t\tif (mc.getAttr(zm , se=True)):\n\t\t\t\tmc.setAttr( zm, defaultValue[0] )\nelse:\n    mc.select(selection)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r face:r_temple_CTRL ;\nselect -tgl face:r_eyeBrow_CTRL ;\nselect -tgl face:r_brow_C_CTRL ;\nselect -tgl face:r_brow_B_CTRL ;\nselect -tgl face:r_brow_A_CTRL ;\nselect -tgl face:r_cheekOuter_CTRL ;\nselect -tgl face:r_cheekUpper_CTRL ;\nselect -tgl face:r_cheekInner_CTRL ;\nselect -tgl face:r_lowerEyeLid_CTRL ;\nselect -tgl face:r_upperEyeLid_CTRL ;\nselect -tgl face:midBrows_CTRL ;\nselect -tgl face:noseMain_CTRL ;\nselect -tgl face:l_cheekInner_CTRL ;\nselect -tgl face:l_brow_A_CTRL ;\nselect -tgl face:l_brow_B_CTRL ;\nselect -tgl face:l_brow_C_CTRL ;\nselect -tgl face:l_eyeBrow_CTRL ;\nselect -tgl face:l_lowerEyeLid_CTRL ;\nselect -tgl face:l_upperEyeLid_CTRL ;\nselect -tgl face:l_cheekOuter_CTRL ;\nselect -tgl face:l_cheekUpper_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "All_brows_lids" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -imageOverlayLabel "lids" 
+        -overlayLabelColor 0 0 0 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/brows_only.JPG" 
+        -image1 "icons/brows_only.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r face:r_temple_CTRL ;\nselect -tgl face:r_eyeBrow_CTRL ;\nselect -tgl face:r_brow_C_CTRL ;\nselect -tgl face:r_brow_B_CTRL ;\nselect -tgl face:r_brow_A_CTRL ;\nselect -tgl face:r_cheekOuter_CTRL ;\nselect -tgl face:r_cheekUpper_CTRL ;\nselect -tgl face:r_cheekInner_CTRL ;\nselect -tgl face:r_lowerEyeLid_CTRL ;\nselect -tgl face:r_upperEyeLid_CTRL ;\nselect -tgl face:midBrows_CTRL ;\nselect -tgl face:noseMain_CTRL ;\nselect -tgl face:l_cheekInner_CTRL ;\nselect -tgl face:l_brow_A_CTRL ;\nselect -tgl face:l_brow_B_CTRL ;\nselect -tgl face:l_brow_C_CTRL ;\nselect -tgl face:l_eyeBrow_CTRL ;\nselect -tgl face:l_lowerEyeLid_CTRL ;\nselect -tgl face:l_upperEyeLid_CTRL ;\nselect -tgl face:l_cheekOuter_CTRL ;\nselect -tgl face:l_cheekUpper_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 43
+        -height 43
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "select -r face:r_cheek_CTRL ;\nselect -tgl face:r_nasalLabialFold_CTRL ;\nselect -tgl face:r_upperLip1_CTRL ;\nselect -tgl face:r_upperLip_CTRL ;\nselect -tgl face:r_lowerLip_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL ;\nselect -tgl face:r_lipCorner_b_CTRL ;\nselect -tgl face:r_lipCorner_t_CTRL ;\nselect -tgl face:r_lipCorner_sdk_CTRL ;\nselect -tgl face:r_lipCorner_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:r_lowerLip_sdk_CTRL ;\nselect -tgl face:chin_CTRL ;\nselect -tgl face:lowerLip_CTRL ;\nselect -tgl face:lowerLip_sdk_CTRL ;\nselect -tgl face:upperLip_CTRL ;\nselect -tgl face:upperLip_sdk_CTRL ;\nselect -tgl face:l_upperLip_CTRL ;\nselect -tgl face:l_upperLip_sdk_CTRL ;\nselect -tgl face:l_lowerLip_sdk_CTRL ;\nselect -tgl face:l_lowerLip_CTRL ;\nselect -tgl face:l_upperLip1_CTRL ;\nselect -tgl face:l_nasalLabialFold_CTRL ;\nselect -tgl face:l_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:l_lowerLip1_CTRL ;\nselect -tgl face:l_lipCorner_b_CTRL ;\nselect -tgl face:l_lipCorner_t_CTRL ;\nselect -tgl face:l_lipCorner_CTRL ;\nselect -tgl face:l_lipCorner_sdk_CTRL ;\nselect -tgl face:l_cheek_CTRL ;\nselect -tgl face:mouthMain_CTRL ;\nselect -tgl face:l_nostril_CTRL ;\nselect -tgl face:r_nostril_CTRL ;\nselect -tgl face:noseMain_CTRL ;" 
+        -enableBackground 0
+        -align "center" 
+        -label "All_mouth_nose" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 1 1 1 
+        -overlayLabelBackColor 0 0 0 0 
+        -image "icons/mouth_cheeks.JPG" 
+        -image1 "icons/mouth_cheeks.JPG" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "select -r face:r_cheek_CTRL ;\nselect -tgl face:r_nasalLabialFold_CTRL ;\nselect -tgl face:r_upperLip1_CTRL ;\nselect -tgl face:r_upperLip_CTRL ;\nselect -tgl face:r_lowerLip_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL ;\nselect -tgl face:r_lipCorner_b_CTRL ;\nselect -tgl face:r_lipCorner_t_CTRL ;\nselect -tgl face:r_lipCorner_sdk_CTRL ;\nselect -tgl face:r_lipCorner_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL ;\nselect -tgl face:r_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:r_lowerLip_sdk_CTRL ;\nselect -tgl face:chin_CTRL ;\nselect -tgl face:lowerLip_CTRL ;\nselect -tgl face:lowerLip_sdk_CTRL ;\nselect -tgl face:upperLip_CTRL ;\nselect -tgl face:upperLip_sdk_CTRL ;\nselect -tgl face:l_upperLip_CTRL ;\nselect -tgl face:l_upperLip_sdk_CTRL ;\nselect -tgl face:l_lowerLip_sdk_CTRL ;\nselect -tgl face:l_lowerLip_CTRL ;\nselect -tgl face:l_upperLip1_CTRL ;\nselect -tgl face:l_nasalLabialFold_CTRL ;\nselect -tgl face:l_lowerLip1_CTRL_sdk_CTRL ;\nselect -tgl face:l_lowerLip1_CTRL ;\nselect -tgl face:l_lipCorner_b_CTRL ;\nselect -tgl face:l_lipCorner_t_CTRL ;\nselect -tgl face:l_lipCorner_CTRL ;\nselect -tgl face:l_lipCorner_sdk_CTRL ;\nselect -tgl face:l_cheek_CTRL ;\nselect -tgl face:mouthMain_CTRL ;\nselect -tgl face:l_nostril_CTRL ;\nselect -tgl face:r_nostril_CTRL ;\nselect -tgl face:noseMain_CTRL ;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+    ;
+
+} 
