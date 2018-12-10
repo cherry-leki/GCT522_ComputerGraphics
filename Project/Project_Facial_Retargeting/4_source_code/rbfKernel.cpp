@@ -113,8 +113,10 @@ int rbf::Train(const vector<vector<double>> &input, const vector<vector<double>>
 	//		for this, you should change data type of output data form vector<vector<double>> to matrix<double>.
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
+	// Build the basis matrix from input data
 	buildBasisMat(_input);
 
+	// Change data type of output data from vector<vector<double>> to matrix<double> (for using prod() function of BOOST)
 	matrix<double> outMat(output.size(), _dimOutput);
 
 	for (int i = 0; i < output.size(); i++) {
@@ -123,6 +125,8 @@ int rbf::Train(const vector<vector<double>> &input, const vector<vector<double>>
 		}
 	}
 
+	// Calculate the matrix product of _inverseBasisMatrix and output data
+	// and save it to _weightMat
 	_weightMat = prod(_inverseBasisMat, outMat);
 
 	return 0;
