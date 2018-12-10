@@ -38,6 +38,7 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 	//	Make controller list from the file(kokoCtrlList.dat) by using MStringArray.														//
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
+	// Make the controller list and get each controller from the target controller list file
 	MStringArray ctrlListArr;
 	while (!fin.eof()) {
 		char temp[100];
@@ -76,18 +77,23 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 			
 	// Iterate the controllers at each frame
 	for (int i = 1; i <= frameNum; i++) {
+		// View the next frame
 		MGlobal::viewFrame(i);
 
 		for (int j = 0; j < ctrlListArr.length(); j++) {
+			// Select a blendshape node by name
 			MGlobal::selectByName(ctrlListArr[j], MGlobal::kReplaceList);
 			MSelectionList selected;
 			MGlobal::getSelectionListByName(ctrlListArr[j], selected);
 
+			// Make the object for getting transform attributes
 			MObject ctrlNode;
 			selected.getDependNode(0, ctrlNode);
 			
 			MFnTransform ctrlTransform(ctrlNode);
 
+			// Get plugs to access the keyable attribute values of controllers
+			// - Attributes list: "translateX","translateY","translateZ","rotateX","rotateY","rotateZ"
 			MPlug trXPlug = ctrlTransform.findPlug("translateX");
 			MPlug trYPlug = ctrlTransform.findPlug("translateY");
 			MPlug trZPlug = ctrlTransform.findPlug("translateZ");
@@ -95,6 +101,8 @@ MStatus FRRCVEXPORTCmd::doIt(const MArgList &args)
 			MPlug rtYPlug = ctrlTransform.findPlug("rotateY");
 			MPlug rtZPlug = ctrlTransform.findPlug("rotateZ");
 
+			// Write down the attribute values on the file
+			// - Since all joints do not have all attributes (because of DoF), check that the plug is connected
 			if (trXPlug.isConnected())	fout << trXPlug.asDouble() << " ";
 			if (trYPlug.isConnected())	fout << trYPlug.asDouble() << " ";
 			if (trZPlug.isConnected())	fout << trZPlug.asDouble() << " ";

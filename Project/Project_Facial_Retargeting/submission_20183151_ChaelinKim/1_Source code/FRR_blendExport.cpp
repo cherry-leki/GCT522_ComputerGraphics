@@ -61,8 +61,10 @@ MStatus FRRBLENDEXPORTCmd::doIt(const MArgList &args)
 	
 	// Get blendshape weights at each frames
 	for (int i = 1; i <= frameNum; i++) {
+		// View the next frame
 		MGlobal::viewFrame(i);
 		
+		// Get blendshape weights
 		MFnBlendShapeDeformer bnDeformer(blendNode);
 		int bnNumWeights = bnDeformer.numWeights();
 

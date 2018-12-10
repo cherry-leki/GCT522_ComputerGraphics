@@ -111,6 +111,8 @@ MStatus FRRTRAININGCmd::doIt ( const MArgList &args )
 	//	Run RBF interpolation by using .interpolate(sourceInput, interpolateResult) function of rbf class
 	//----------------------------------------------------------------------------------------------------------------------------------//
 
+	// Reshape source animation data matrix (for using BOOST)
+	// WVec -> srcInput
 	vector<vector<double>> srcInput(numSamplePair);
 
 	for (unsigned int i = 0; i < numSamplePair; i++)
@@ -123,12 +125,15 @@ MStatus FRRTRAININGCmd::doIt ( const MArgList &args )
 		}
 
 		srcInput(i) = tempVec;
+
+		// Free tempVec
 		tempVec.clear();
 	}
 
-	//free
+	// Free WVec
 	WVec.clear();
 
+	// Run RBF interpolation
 	rbfn.Interpolate(srcInput, result);
 
 	//export the final result matrix to file
